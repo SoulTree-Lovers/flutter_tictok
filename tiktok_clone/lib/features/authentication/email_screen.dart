@@ -121,6 +121,7 @@ class _EmailScreenState extends State<EmailScreen> {
                 hintText: 'Email',
                 errorText: _isEmailValid(),
                 onEditingComplete: _onSubmit,
+                isEmailTextField: true,
               ),
               Gaps.v16,
               FormButton(

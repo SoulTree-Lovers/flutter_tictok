@@ -91,6 +91,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
               hintText: "Username",
               errorText: _username.isEmpty ? "Username is required" : null,
               onEditingComplete: _onNextTap,
+              isEmailTextField: false,
             ),
             Gaps.v16,
             FormButton(

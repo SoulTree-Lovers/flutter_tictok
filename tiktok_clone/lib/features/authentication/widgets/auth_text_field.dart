@@ -6,13 +6,23 @@ class AuthTextField extends StatelessWidget {
   final String hintText;
   final String? errorText;
   final VoidCallback onEditingComplete;
+  final bool isEmailTextField;
+  final Icon? prefixIcon;
+  final Icon? suffixIcon;
+  final Widget? suffix;
+  final bool isObsecureText;
 
   const AuthTextField({
     super.key,
     required this.controller,
     required this.hintText,
     required this.onEditingComplete,
+    required this.isEmailTextField,
     this.errorText,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.suffix,
+    this.isObsecureText = false,
   });
 
 
@@ -20,10 +30,14 @@ class AuthTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       onEditingComplete: onEditingComplete,
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: isEmailTextField ? TextInputType.emailAddress : TextInputType.text,
       autocorrect: false,
       controller: controller,
+      obscureText: isObsecureText,
       decoration: InputDecoration(
+        suffix: suffix,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
         hintText: hintText,
         errorText: errorText ?? null,
         hintStyle: TextStyle(
