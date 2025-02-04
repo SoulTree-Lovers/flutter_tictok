@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
+import 'package:tictok_clone/features/authentication/email_screen.dart';
 import 'package:tictok_clone/features/authentication/widgets/auth_button.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  void onSignUpTap(BuildContext context) {
+  void _onSignUpTap(BuildContext context) {
     Navigator.of(context).pop();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +46,9 @@ class LoginScreen extends StatelessWidget {
                 icon: FaIcon(
                   FontAwesomeIcons.user,
                 ),
+                onTap: () {
+
+                },
               ),
               Gaps.v16,
               AuthButton(
@@ -50,6 +56,7 @@ class LoginScreen extends StatelessWidget {
                 icon: FaIcon(
                   FontAwesomeIcons.facebook,
                 ),
+                onTap: () {},
               ),
               Gaps.v16,
               AuthButton(
@@ -57,6 +64,7 @@ class LoginScreen extends StatelessWidget {
                 icon: FaIcon(
                   FontAwesomeIcons.google,
                 ),
+                onTap: () {},
               ),
             ],
           ),
@@ -79,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 Gaps.h8,
                 InkWell(
-                  onTap: () => onSignUpTap(context),
+                  onTap: () => _onSignUpTap(context),
                   child: Text(
                     'Sign Up',
                     style: TextStyle(

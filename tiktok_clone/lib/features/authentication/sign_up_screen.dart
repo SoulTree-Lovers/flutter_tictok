@@ -2,17 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
+import 'package:tictok_clone/features/authentication/username_screen.dart';
 import 'package:tictok_clone/features/authentication/widgets/auth_button.dart';
 
+import 'email_screen.dart';
 import 'login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
-  void onLoginTap(BuildContext context) {
+  void _onLoginTap(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => LoginScreen(),
+      ),
+    );
+  }
+
+  void _onEmailTap(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => UsernameScreen(),
       ),
     );
   }
@@ -45,10 +55,11 @@ class SignUpScreen extends StatelessWidget {
               ),
               Gaps.v40,
               AuthButton(
-                text: 'Use phone or email',
+                text: 'Use email & password',
                 icon: FaIcon(
                   FontAwesomeIcons.user,
                 ),
+                onTap: () => _onEmailTap(context),
               ),
               Gaps.v16,
               AuthButton(
@@ -56,6 +67,7 @@ class SignUpScreen extends StatelessWidget {
                 icon: FaIcon(
                   FontAwesomeIcons.facebook,
                 ),
+                onTap: () {},
               ),
               Gaps.v16,
               AuthButton(
@@ -63,6 +75,7 @@ class SignUpScreen extends StatelessWidget {
                 icon: FaIcon(
                   FontAwesomeIcons.apple,
                 ),
+                onTap: () {},
               ),
               Gaps.v16,
               AuthButton(
@@ -70,6 +83,7 @@ class SignUpScreen extends StatelessWidget {
                 icon: FaIcon(
                   FontAwesomeIcons.google,
                 ),
+                onTap: () {},
               ),
             ],
           ),
@@ -78,7 +92,7 @@ class SignUpScreen extends StatelessWidget {
       bottomNavigationBar: SizedBox(
         height: Sizes.size60 * 2,
         child: BottomAppBar(
-          color: Colors.grey.shade200,
+          color: Colors.grey.shade50,
           elevation: 1,
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -92,7 +106,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 Gaps.h8,
                 InkWell(
-                  onTap: () => onLoginTap(context),
+                  onTap: () => _onLoginTap(context),
                   child: Text(
                     'Log In',
                     style: TextStyle(
