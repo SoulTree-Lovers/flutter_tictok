@@ -1,10 +1,81 @@
 import 'package:flutter/material.dart';
+import 'package:tictok_clone/constants/gaps.dart';
+import 'package:tictok_clone/constants/sizes.dart';
+import 'package:tictok_clone/features/authentication/widgets/form_button.dart';
 
-class LoginFormScreen extends StatelessWidget {
+class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({super.key});
 
   @override
+  State<LoginFormScreen> createState() => _LoginFormScreenState();
+}
+
+class _LoginFormScreenState extends State<LoginFormScreen> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  Map<String, String> _formData = {
+    "email": "",
+    "password": "",
+  };
+
+  void _onSubmitTap() {
+    if (_formKey.currentState != null) {
+      if (_formKey.currentState!.validate()) {
+        _formKey.currentState!.save();
+        print(_formData);
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Login"),
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: Sizes.size36),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: "Email",
+                ),
+                validator: (value) {
+                  return null;
+                },
+                onSaved: (value) {
+                  if (value != null) {
+                    _formData["email"] = value;
+                  }
+                },
+              ),
+              Gaps.v16,
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: "Password",
+                ),
+                validator: (value) {
+                  return null;
+                },
+                onSaved: (value) {
+                  if (value != null) {
+                    _formData["password"] = value;
+                  }
+                },
+              ),
+              Gaps.v28,
+              FormButton(
+                disabled: false,
+                onTap: _onSubmitTap,
+                text: "Login",
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -6,11 +6,13 @@ import '../../../constants/sizes.dart';
 class FormButton extends StatelessWidget {
   final bool disabled;
   final VoidCallback onTap;
+  final String text;
 
   const FormButton({
     super.key,
     required this.disabled,
     required this.onTap,
+    required this.text,
   });
 
 
@@ -37,7 +39,7 @@ class FormButton extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
               child: Text(
-                'Next',
+                text,
                 textAlign: TextAlign.center,
               ),
             ),

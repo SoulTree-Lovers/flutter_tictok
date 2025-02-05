@@ -148,7 +148,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
               Row(
                 children: [
                   FaIcon(
-                    _isPasswordValid() ? FontAwesomeIcons.circleCheck : FontAwesomeIcons.exclamation,
+                    _isPasswordValid()
+                        ? FontAwesomeIcons.circleCheck
+                        : FontAwesomeIcons.exclamation,
                     size: Sizes.size20,
                     color: _isPasswordValid() ? Colors.green : Colors.red,
                   ),
@@ -166,6 +168,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
               FormButton(
                 disabled: !_isPasswordValid(),
                 onTap: _onSubmit,
+                text: 'Next',
               ),
             ],
           ),
