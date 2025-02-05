@@ -3,6 +3,8 @@ import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/authentication/widgets/form_button.dart';
 
+import '../onboarding/interests_screen.dart';
+
 class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({super.key});
 
@@ -22,9 +24,15 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        print(_formData);
+
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => InterestsScreen(),
+          ),
+        );
       }
     }
+
   }
 
   @override
@@ -44,6 +52,9 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                   labelText: "Email",
                 ),
                 validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Email is required";
+                  }
                   return null;
                 },
                 onSaved: (value) {
@@ -58,6 +69,9 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                   labelText: "Password",
                 ),
                 validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Password is required";
+                  }
                   return null;
                 },
                 onSaved: (value) {
