@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class AuthTextField extends StatelessWidget {
   final TextEditingController controller;
-  final String hintText;
+  final String? hintText;
   final String? errorText;
   final VoidCallback onEditingComplete;
   final bool isEmailTextField;
@@ -11,24 +11,27 @@ class AuthTextField extends StatelessWidget {
   final Icon? suffixIcon;
   final Widget? suffix;
   final bool isObsecureText;
+  final bool readOnly;
 
   const AuthTextField({
     super.key,
     required this.controller,
-    required this.hintText,
     required this.onEditingComplete,
     required this.isEmailTextField,
+    this.hintText,
     this.errorText,
     this.prefixIcon,
     this.suffixIcon,
     this.suffix,
     this.isObsecureText = false,
+    this.readOnly = false,
   });
 
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      readOnly: readOnly,
       onEditingComplete: onEditingComplete,
       keyboardType: isEmailTextField ? TextInputType.emailAddress : TextInputType.text,
       autocorrect: false,
@@ -38,8 +41,8 @@ class AuthTextField extends StatelessWidget {
         suffix: suffix,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        hintText: hintText,
-        errorText: errorText ?? null,
+        hintText: hintText ?? "",
+        errorText: errorText,
         hintStyle: TextStyle(
           color: Colors.black38,
         ),
