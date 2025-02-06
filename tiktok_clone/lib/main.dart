@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tictok_clone/features/onboarding/tutorial_screen.dart';
 import 'constants/sizes.dart';
@@ -12,22 +13,22 @@ class TikTokApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return CupertinoApp(
       title: 'TikTok',
-      theme: ThemeData(
-        useMaterial3: true,
-        scaffoldBackgroundColor: Colors.white,
-        primaryColor: Color(0xFFE9435A),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          titleTextStyle: TextStyle(
-            color: Colors.black,
-            fontSize: Sizes.size16 + Sizes.size2,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
+      // theme: ThemeData(
+      //   useMaterial3: true,
+      //   scaffoldBackgroundColor: Colors.white,
+      //   primaryColor: Color(0xFFE9435A),
+      //   appBarTheme: const AppBarTheme(
+      //     backgroundColor: Colors.white,
+      //     foregroundColor: Colors.black,
+      //     titleTextStyle: TextStyle(
+      //       color: Colors.black,
+      //       fontSize: Sizes.size16 + Sizes.size2,
+      //       fontWeight: FontWeight.w600,
+      //     ),
+      //   ),
+      // ),
       home: TutorialScreen(),
     );
   }

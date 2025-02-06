@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -38,47 +39,32 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: screens[_currentIndex],
-      bottomNavigationBar: NavigationBar(
-        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        selectedIndex: _currentIndex,
-        onDestinationSelected: _onTap,
-        destinations: [
-          NavigationDestination(
-            icon: FaIcon(
-              FontAwesomeIcons.house,
-              color: Colors.blue,
-            ),
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.house),
             label: 'Home',
           ),
-          NavigationDestination(
-            icon: FaIcon(
-              FontAwesomeIcons.magnifyingGlass,
-              color: Colors.amber,
-            ),
-            label: 'Search',
-          ),
-          NavigationDestination(
-            icon: FaIcon(
-              FontAwesomeIcons.house,
-            ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.search),
             label: 'Home',
           ),
-          NavigationDestination(
-            icon: FaIcon(
-              FontAwesomeIcons.house,
-            ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.house),
             label: 'Home',
           ),
-          NavigationDestination(
-            icon: FaIcon(
-              FontAwesomeIcons.house,
-            ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.house),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.house),
             label: 'Home',
           ),
         ],
       ),
+      tabBuilder: (BuildContext context, int index) => screens[index],
     );
   }
 }
