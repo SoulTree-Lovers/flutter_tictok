@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/main_navigation/stf_screen.dart';
 import 'package:tictok_clone/features/main_navigation/widgets/nav_tab.dart';
+import 'package:tictok_clone/features/main_navigation/widgets/post_video_button.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -20,6 +22,27 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       _currentIndex = index;
     });
     print('Current Index: $_currentIndex');
+  }
+
+  void _onPostVideoButtonTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => Scaffold(
+          appBar: AppBar(
+            title: Text("Record Video"),
+          ),
+          body: Center(
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Close"),
+            ),
+          ),
+        ),
+        fullscreenDialog: true,
+      ),
+    );
   }
 
   @override
@@ -52,6 +75,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           padding: const EdgeInsets.all(Sizes.size12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               NavTab(
                 text: "Home",
@@ -67,6 +91,12 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 selectedIcon: FontAwesomeIcons.solidCompass,
                 onTap: () => _onTap(1),
               ),
+              Gaps.h24,
+              GestureDetector(
+                onTap: _onPostVideoButtonTap,
+                child: PostVideoButton(),
+              ),
+              Gaps.h24,
               NavTab(
                 text: "Inbox",
                 isSelected: _currentIndex == 3,
