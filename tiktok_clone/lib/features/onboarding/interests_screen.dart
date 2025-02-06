@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tictok_clone/constants/gaps.dart';
+import 'package:tictok_clone/features/onboarding/tutorial_screen.dart';
 import 'package:tictok_clone/features/onboarding/widgets/interest_button.dart';
 
 import '../../constants/sizes.dart';
@@ -87,6 +88,14 @@ class _InterestsScreenState extends State<InterestsScreen> {
     super.dispose();
   }
 
+  void _onNextTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => TutorialScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,21 +164,24 @@ class _InterestsScreenState extends State<InterestsScreen> {
             vertical: Sizes.size16,
             horizontal: Sizes.size20,
           ),
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              vertical: Sizes.size20,
-            ),
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(Sizes.size20),
-            ),
-            child: Text(
-              'Next',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: Sizes.size16,
-                fontWeight: FontWeight.w700,
+          child: InkWell(
+            onTap: _onNextTap,
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: Sizes.size20,
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(Sizes.size20),
+              ),
+              child: Text(
+                'Next',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: Sizes.size16,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ),

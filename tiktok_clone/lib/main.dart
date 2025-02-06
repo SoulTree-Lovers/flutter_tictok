@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tictok_clone/features/onboarding/interests_screen.dart';
+import 'package:tictok_clone/features/onboarding/tutorial_screen.dart';
 import 'constants/sizes.dart';
-import 'features/authentication/sign_up_screen.dart';
 
 void main() {
   runApp(const TikTokApp());
@@ -16,12 +15,12 @@ class TikTokApp extends StatelessWidget {
     return MaterialApp(
       title: 'TikTok',
       theme: ThemeData(
+        useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
         primaryColor: Color(0xFFE9435A),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
-          elevation: 0,
           titleTextStyle: TextStyle(
             color: Colors.black,
             fontSize: Sizes.size16 + Sizes.size2,
@@ -29,7 +28,7 @@ class TikTokApp extends StatelessWidget {
           ),
         ),
       ),
-      home: InterestsScreen(),
+      home: TutorialScreen(),
     );
   }
 }
