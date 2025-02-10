@@ -3,6 +3,7 @@ import 'package:tictok_clone/features/onboarding/tutorial_screen.dart';
 import 'constants/sizes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized(); // Flutter 엔진 초기화
   runApp(const TikTokApp());
 }
 
