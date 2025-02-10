@@ -23,7 +23,7 @@ class VideoPost extends StatefulWidget {
 class _VideoPostState extends State<VideoPost>
     with SingleTickerProviderStateMixin {
   final VideoPlayerController _controller = VideoPlayerController.asset(
-    'assets/videos/video3.mp4',
+    'assets/videos/video2.mp4',
   );
 
   bool _isPaused = false;
@@ -72,7 +72,7 @@ class _VideoPostState extends State<VideoPost>
   void _onVisibilityChanged(VisibilityInfo visibilityInfo) {
     print(
         "Video: ${widget.index} is ${visibilityInfo.visibleFraction * 100}% visible");
-    if (visibilityInfo.visibleFraction == 1 && !_controller.value.isPlaying) {
+    if (visibilityInfo.visibleFraction == 1 && !_controller.value.isPlaying && !_isPaused) {
       _controller.play();
     }
   }
