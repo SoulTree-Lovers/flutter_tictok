@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tictok_clone/features/main_navigation/main_navigation_screen.dart';
 import 'package:tictok_clone/features/onboarding/tutorial_screen.dart';
 import 'constants/sizes.dart';
 
@@ -29,7 +30,7 @@ class TikTokApp extends StatelessWidget {
           ),
         ),
       ),
-      home: TutorialScreen(),
+      home: MainNavigationScreen(),
     );
   }
 }
