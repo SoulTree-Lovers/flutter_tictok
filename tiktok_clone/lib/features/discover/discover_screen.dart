@@ -86,12 +86,10 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             ),
             Gaps.h10,
           ],
-          title: Expanded(
-            child: CupertinoSearchTextField(
-              onChanged: _onSearchChanged,
-              onSubmitted: _onSearchSubmitted,
-              controller: _searchController, // ✅ TextEditingController 적용
-            ),
+          title: CupertinoSearchTextField(
+            onChanged: _onSearchChanged,
+            onSubmitted: _onSearchSubmitted,
+            controller: _searchController, // ✅ TextEditingController 적용
           ),
           bottom: TabBar(
             controller: _tabController,  // ✅ TabController 적용
