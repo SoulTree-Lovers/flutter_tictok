@@ -79,10 +79,19 @@ class _DiscoverScreenState extends State<DiscoverScreen>
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: CupertinoSearchTextField(
-            onChanged: _onSearchChanged,
-            onSubmitted: _onSearchSubmitted,
-            controller: _searchController, // ✅ TextEditingController 적용
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: FaIcon(FontAwesomeIcons.sliders),
+            ),
+            Gaps.h10,
+          ],
+          title: Expanded(
+            child: CupertinoSearchTextField(
+              onChanged: _onSearchChanged,
+              onSubmitted: _onSearchSubmitted,
+              controller: _searchController, // ✅ TextEditingController 적용
+            ),
           ),
           bottom: TabBar(
             controller: _tabController,  // ✅ TabController 적용
