@@ -72,8 +72,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
+        color: _currentIndex == 0 ? Colors.black : Colors.white,
         height: Sizes.size40 * 2.6,
-        color: Colors.black,
         child: Padding(
           padding: const EdgeInsets.all(Sizes.size12),
           child: Row(
@@ -86,6 +86,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 icon: FontAwesomeIcons.house,
                 selectedIcon: FontAwesomeIcons.house,
                 onTap: () => _onTap(0),
+                currentIndex: _currentIndex,
               ),
               NavTab(
                 text: "Discover",
@@ -93,11 +94,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 icon: FontAwesomeIcons.compass,
                 selectedIcon: FontAwesomeIcons.solidCompass,
                 onTap: () => _onTap(1),
+                currentIndex: _currentIndex,
               ),
               Gaps.h24,
               GestureDetector(
                 onTap: _onPostVideoButtonTap,
-                child: PostVideoButton(),
+                child: PostVideoButton(
+                  inverted: _currentIndex != 0,
+                ),
               ),
               Gaps.h24,
               NavTab(
@@ -106,6 +110,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 icon: FontAwesomeIcons.message,
                 selectedIcon: FontAwesomeIcons.solidMessage,
                 onTap: () => _onTap(3),
+                currentIndex: _currentIndex,
               ),
               NavTab(
                 text: "Profile",
@@ -113,6 +118,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 icon: FontAwesomeIcons.user,
                 selectedIcon: FontAwesomeIcons.solidUser,
                 onTap: () => _onTap(4),
+                currentIndex: _currentIndex,
               ),
             ],
           ),

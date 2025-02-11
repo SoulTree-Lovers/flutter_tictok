@@ -1,12 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../constants/sizes.dart';
 
 class PostVideoButton extends StatelessWidget {
+  final bool inverted;
+
   const PostVideoButton({
     super.key,
+    required this.inverted,
   });
 
   @override
@@ -42,13 +44,13 @@ class PostVideoButton extends StatelessWidget {
           height: Sizes.size40,
           padding: EdgeInsets.symmetric(horizontal: Sizes.size12),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: !inverted ? Colors.white : Colors.black,
             borderRadius: BorderRadius.circular(Sizes.size12),
           ),
           child: Center(
             child: FaIcon(
               FontAwesomeIcons.plus,
-              color: Colors.black,
+              color: !inverted ? Colors.black : Colors.white,
               size: Sizes.size20,
             ),
           ),

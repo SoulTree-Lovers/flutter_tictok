@@ -9,6 +9,7 @@ class NavTab extends StatelessWidget {
   final IconData icon;
   final IconData selectedIcon;
   final Function onTap;
+  final int currentIndex;
 
   const NavTab({
     super.key,
@@ -17,6 +18,7 @@ class NavTab extends StatelessWidget {
     required this.icon,
     required this.onTap,
     required this.selectedIcon,
+    required this.currentIndex,
   });
 
   @override
@@ -34,13 +36,13 @@ class NavTab extends StatelessWidget {
               children: [
                 FaIcon(
                   isSelected ? selectedIcon : icon,
-                  color: Colors.white,
+                  color: currentIndex == 0 ? Colors.white : Colors.grey.shade600,
                 ),
                 Gaps.v10,
                 Text(
                   text,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: currentIndex == 0 ? Colors.white : Colors.grey.shade600,
                   ),
                 ),
               ],
