@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/videos/widgets/video_button.dart';
+import 'package:tictok_clone/features/videos/widgets/video_comments.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -72,7 +73,9 @@ class _VideoPostState extends State<VideoPost>
   void _onVisibilityChanged(VisibilityInfo visibilityInfo) {
     print(
         "Video: ${widget.index} is ${visibilityInfo.visibleFraction * 100}% visible");
-    if (visibilityInfo.visibleFraction == 1 && !_controller.value.isPlaying && !_isPaused) {
+    if (visibilityInfo.visibleFraction == 1 &&
+        !_controller.value.isPlaying &&
+        !_isPaused) {
       _controller.play();
     }
   }
@@ -89,6 +92,22 @@ class _VideoPostState extends State<VideoPost>
     setState(() {
       _isPaused = !_isPaused;
     });
+  }
+
+  void _onCommentsTap(BuildContext context) async {
+    if (_controller.value.isPlaying) {
+      _onTogglePause();
+    }
+
+    await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) => VideoComments(),
+    );
+
+    _onTogglePause();
+    print("closed");
   }
 
   @override
@@ -183,9 +202,12 @@ class _VideoPostState extends State<VideoPost>
                   text: "2.9M",
                 ),
                 Gaps.v24,
-                VideoButton(
-                  icon: FontAwesomeIcons.solidComment,
-                  text: "33K",
+                GestureDetector(
+                  onTap: () => _onCommentsTap(context),
+                  child: VideoButton(
+                    icon: FontAwesomeIcons.solidComment,
+                    text: "33K",
+                  ),
                 ),
                 Gaps.v24,
                 VideoButton(
@@ -193,7 +215,6 @@ class _VideoPostState extends State<VideoPost>
                   text: "Share",
                 ),
                 Gaps.v10,
-
               ],
             ),
           ),

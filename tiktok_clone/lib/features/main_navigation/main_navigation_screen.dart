@@ -49,6 +49,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false, // 키보드가 올라와도 화면이 줄어들지 않음
       backgroundColor: _currentIndex == 0 ? Colors.black : Colors.white,
       body: Stack(
         children: [
