@@ -7,6 +7,7 @@ import 'package:tictok_clone/features/discover/discover_screen.dart';
 import 'package:tictok_clone/features/main_navigation/stf_screen.dart';
 import 'package:tictok_clone/features/main_navigation/widgets/nav_tab.dart';
 import 'package:tictok_clone/features/main_navigation/widgets/post_video_button.dart';
+import 'package:tictok_clone/features/users/user_profile_screen.dart';
 import 'package:tictok_clone/features/videos/inbox/inbox_screen.dart';
 import 'package:tictok_clone/features/videos/video_timeline_screen.dart';
 
@@ -18,7 +19,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _currentIndex = 3;
+  int _currentIndex = 4;
 
   void _onTap(int index) {
     setState(() {
@@ -69,7 +70,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           Offstage(
             offstage: _currentIndex != 4,
-            child: StfScreen(),
+            child: UserProfileScreen(),
           ),
         ],
       ),
