@@ -71,6 +71,10 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _onVisibilityChanged(VisibilityInfo visibilityInfo) {
+    if (!mounted) {
+      return;
+    }
+
     print(
         "Video: ${widget.index} is ${visibilityInfo.visibleFraction * 100}% visible");
     if (visibilityInfo.visibleFraction == 1 &&
