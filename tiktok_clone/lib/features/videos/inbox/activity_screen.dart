@@ -75,7 +75,9 @@ class _ActivityScreenState extends State<ActivityScreen>
   }
 
   void _toggleAnimations() async {
-    if (_animationController.isAnimating) { return; }
+    if (_animationController.isAnimating) {
+      return;
+    }
 
     if (_animationController.isCompleted) {
       await _animationController.reverse();
@@ -228,11 +230,11 @@ class _ActivityScreenState extends State<ActivityScreen>
             ],
           ),
           if (_showBarrier)
-          AnimatedModalBarrier(
-            color: _barrierAnimation,
-            dismissible: true,
-            onDismiss: _toggleAnimations,
-          ),
+            AnimatedModalBarrier(
+              color: _barrierAnimation,
+              dismissible: true,
+              onDismiss: _toggleAnimations,
+            ),
           SlideTransition(
             position: _panelAnimation,
             child: Container(
@@ -270,7 +272,6 @@ class _ActivityScreenState extends State<ActivityScreen>
               ),
             ),
           ),
-
         ],
       ),
     );
