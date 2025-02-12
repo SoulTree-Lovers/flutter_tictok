@@ -45,7 +45,7 @@ class _ActivityScreenState extends State<ActivityScreen>
 
   late final AnimationController _animationController = AnimationController(
     vsync: this,
-    duration: Duration(milliseconds: 1000),
+    duration: Duration(milliseconds: 200),
   );
 
   late final Animation<double> _arrowAnimation =
@@ -75,6 +75,8 @@ class _ActivityScreenState extends State<ActivityScreen>
   }
 
   void _toggleAnimations() async {
+    if (_animationController.isAnimating) { return; }
+
     if (_animationController.isCompleted) {
       await _animationController.reverse();
     } else {
