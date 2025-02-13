@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tictok_clone/constants/breakpoints.dart';
 
 import '../../constants/gaps.dart';
 import '../../constants/sizes.dart';
@@ -74,6 +75,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    print("Width: $width");
+
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
@@ -117,7 +121,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                 padding: EdgeInsets.all(Sizes.size10),
                 itemCount: 20,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+                  crossAxisCount: width > Breakpoints.lg ? 5 : 2,
                   crossAxisSpacing: Sizes.size10,
                   mainAxisSpacing: Sizes.size10,
                   childAspectRatio: 9 / 20,
