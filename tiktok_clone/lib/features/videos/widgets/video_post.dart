@@ -25,7 +25,7 @@ class VideoPost extends StatefulWidget {
 class _VideoPostState extends State<VideoPost>
     with SingleTickerProviderStateMixin {
   final VideoPlayerController _controller = VideoPlayerController.asset(
-    'assets/videos/video2.mp4',
+    'assets/videos/video.mp4',
   );
 
   bool _isPaused = false;

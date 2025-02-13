@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tictok_clone/features/authentication/sign_up_screen.dart';
+import 'package:tictok_clone/features/discover/discover_screen.dart';
 import 'package:tictok_clone/features/main_navigation/main_navigation_screen.dart';
 import 'package:tictok_clone/features/onboarding/tutorial_screen.dart';
 import 'package:tictok_clone/features/videos/inbox/activity_screen.dart';
@@ -51,6 +52,37 @@ class TikTokApp extends StatelessWidget {
         ),
       ),
       home: MainNavigationScreen(),
+    );
+  }
+}
+
+
+class LayoutBuilderCodeLab extends StatelessWidget {
+  const LayoutBuilderCodeLab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      body: Container(
+        width: size.width / 2,
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return Container(
+              width: constraints.maxWidth,
+              height: constraints.maxHeight,
+              color: Colors.blue,
+              child: Center(
+                child: Text("Width: ${size.width} / ${constraints.maxWidth}, Height: ${constraints.maxHeight}", style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 50,
+                ),),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }

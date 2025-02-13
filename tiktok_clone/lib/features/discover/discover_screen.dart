@@ -90,10 +90,17 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             ),
             Gaps.h10,
           ],
-          title: CupertinoSearchTextField(
-            onChanged: _onSearchChanged,
-            onSubmitted: _onSearchSubmitted,
-            controller: _searchController, // ✅ TextEditingController 적용
+          title: Center(
+            child: ConstrainedBox( // 최대 너비 제한
+              constraints: BoxConstraints(
+                maxWidth: Breakpoints.sm,
+              ),
+              child: CupertinoSearchTextField(
+                onChanged: _onSearchChanged,
+                onSubmitted: _onSearchSubmitted,
+                controller: _searchController, // ✅ TextEditingController 적용
+              ),
+            ),
           ),
           bottom: TabBar(
             controller: _tabController,  // ✅ TabController 적용
@@ -127,72 +134,77 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                   childAspectRatio: 9 / 20,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      Container(
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Sizes.size4),
-                        ),
-                        child: AspectRatio(
-                          aspectRatio: 9 / 16,
-                          child: FadeInImage(
-                            fit: BoxFit.cover,
-                            placeholder: AssetImage(
-                              "assets/images/image1.png",
+                  return LayoutBuilder(
+                    builder: (BuildContext context, BoxConstraints constraints) {
+                      return Column(
+                        children: [
+                          Container(
+                            clipBehavior: Clip.hardEdge,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(Sizes.size4),
                             ),
-                            image: NetworkImage(
-                                "https://images.unsplash.com/photo-1738848392298-cf0b62edc750?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw4MHx8fGVufDB8fHx8fA%3D%3D"),
+                            child: AspectRatio(
+                              aspectRatio: 9 / 16,
+                              child: FadeInImage(
+                                fit: BoxFit.cover,
+                                placeholder: AssetImage(
+                                  "assets/images/image1.png",
+                                ),
+                                image: NetworkImage(
+                                    "https://images.unsplash.com/photo-1738848392298-cf0b62edc750?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw4MHx8fGVufDB8fHx8fA%3D%3D"),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      Gaps.v8,
-                      Text(
-                        "This is a title of the video that is very long and it will be cut off at some point",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: Sizes.size16,
-                        ),
-                      ),
-                      Gaps.v4,
-                      DefaultTextStyle(
-                        style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontSize: Sizes.size12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              radius: Sizes.size12,
-                              backgroundImage: NetworkImage(
-                                "https://avatars.githubusercontent.com/u/54972879?v=4",
-                              ),
+                          Gaps.v8,
+                          Text(
+                            "${constraints.maxWidth} This is a title of the video that is very long and it will be cut off at some point",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: Sizes.size16,
                             ),
-                            Gaps.h8,
-                            Expanded(
-                              child: Text(
-                                "My name is very long and it will be cut off",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            Gaps.h4,
-                            FaIcon(
-                              FontAwesomeIcons.heart,
-                              size: Sizes.size12,
+                          ),
+                          Gaps.v4,
+                          if (constraints.maxWidth < 200 || constraints.maxWidth > 250)
+                          DefaultTextStyle(
+                            style: TextStyle(
                               color: Colors.grey.shade600,
+                              fontSize: Sizes.size12,
+                              fontWeight: FontWeight.bold,
                             ),
-                            Gaps.h2,
-                            Text(
-                              "2.5M",
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: Sizes.size12,
+                                  backgroundImage: NetworkImage(
+                                    "https://avatars.githubusercontent.com/u/54972879?v=4",
+                                  ),
+                                ),
+                                Gaps.h8,
+                                Expanded(
+                                  child: Text(
+                                    "My name is very long and it will be cut off",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                Gaps.h4,
+                                FaIcon(
+                                  FontAwesomeIcons.heart,
+                                  size: Sizes.size12,
+                                  color: Colors.grey.shade600,
+                                ),
+                                Gaps.h2,
+                                Text(
+                                  "2.5M",
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                    ],
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
               ),
