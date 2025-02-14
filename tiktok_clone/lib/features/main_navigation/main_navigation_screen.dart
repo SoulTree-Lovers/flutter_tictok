@@ -10,6 +10,7 @@ import 'package:tictok_clone/features/main_navigation/widgets/post_video_button.
 import 'package:tictok_clone/features/users/user_profile_screen.dart';
 import 'package:tictok_clone/features/videos/inbox/inbox_screen.dart';
 import 'package:tictok_clone/features/videos/video_timeline_screen.dart';
+import 'package:tictok_clone/utils/utils.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -53,7 +54,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, // 키보드가 올라와도 화면이 줄어들지 않음
-      backgroundColor: _currentIndex == 0 ? Colors.black : Colors.white,
+      backgroundColor: _currentIndex == 0 || isDarkMode(context) ? Colors.black : Colors.white,
       body: Stack(
         children: [
           Offstage(
@@ -75,7 +76,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: _currentIndex == 0 ? Colors.black : Colors.white,
+        color: _currentIndex == 0 || isDarkMode(context) ? Colors.black : Colors.white,
         height: Sizes.size40 * 2.6,
         child: Padding(
           padding: const EdgeInsets.all(Sizes.size12),

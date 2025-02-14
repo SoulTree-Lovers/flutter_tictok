@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
+import 'package:tictok_clone/utils/utils.dart';
 
 class VideoComments extends StatefulWidget {
   const VideoComments({super.key});
@@ -46,9 +47,9 @@ class _VideoCommentsState extends State<VideoComments> {
         borderRadius: BorderRadius.circular(Sizes.size16),
       ),
       child: Scaffold(
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: isDarkMode(context) ? null : Colors.grey.shade50,
         appBar: AppBar(
-          backgroundColor: Colors.grey.shade50,
+          backgroundColor: isDarkMode(context) ? null : Colors.grey.shade50,
           automaticallyImplyLeading: false,
           title: Text("304 Comments"),
           actions: [
@@ -113,7 +114,6 @@ class _VideoCommentsState extends State<VideoComments> {
                               "52.2K",
                               style: TextStyle(
                                 fontSize: Sizes.size12,
-                                color: Colors.grey.shade600,
                               ),
                             ),
                           ],
@@ -128,7 +128,6 @@ class _VideoCommentsState extends State<VideoComments> {
                 bottom: 0,
                 width: size.width,
                 child: BottomAppBar(
-                  color: Colors.white,
                   child: Row(
                     children: [
                       CircleAvatar(
@@ -148,7 +147,6 @@ class _VideoCommentsState extends State<VideoComments> {
                             // expands: true를 사용하려면 minLines와 maxLines를 null로 설정해야 함
                             minLines: null,
                             maxLines: null,
-                            cursorColor: Colors.black,
                             decoration: InputDecoration(
                               hintText: "Add a comment...",
                               border: OutlineInputBorder(
@@ -162,38 +160,47 @@ class _VideoCommentsState extends State<VideoComments> {
                                 vertical: Sizes.size8,
                               ),
                               suffixIcon: Padding(
-                                padding: const EdgeInsets.only(right: Sizes.size14),
+                                padding:
+                                    const EdgeInsets.only(right: Sizes.size14),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     FaIcon(
                                       FontAwesomeIcons.at,
-                                      color: Colors.grey.shade900,
+                                      color: isDarkMode(context)
+                                          ? Colors.grey.shade500
+                                          : Colors.grey.shade900,
                                     ),
                                     Gaps.h10,
                                     FaIcon(
                                       FontAwesomeIcons.gift,
-                                      color: Colors.grey.shade900,
+                                      color: isDarkMode(context)
+                                          ? Colors.grey.shade500
+                                          : Colors.grey.shade900,
                                     ),
                                     Gaps.h10,
                                     FaIcon(
                                       FontAwesomeIcons.faceSmile,
-                                      color: Colors.grey.shade900,
+                                      color: isDarkMode(context)
+                                          ? Colors.grey.shade500
+                                          : Colors.grey.shade900,
                                     ),
                                     Gaps.h10,
                                     if (_isWritingComment)
-                                    InkWell(
-                                      onTap: _stopWriting,
-                                      child: FaIcon(
-                                        FontAwesomeIcons.circleArrowUp,
-                                        color: Theme.of(context).primaryColor,
+                                      InkWell(
+                                        onTap: _stopWriting,
+                                        child: FaIcon(
+                                          FontAwesomeIcons.circleArrowUp,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
                                       ),
-                                    ),
                                   ],
                                 ),
                               ),
                               filled: true,
-                              fillColor: Colors.grey.shade200,
+                              fillColor: isDarkMode(context)
+                                  ? Colors.grey.shade800
+                                  : Colors.grey.shade200,
                             ),
                           ),
                         ),

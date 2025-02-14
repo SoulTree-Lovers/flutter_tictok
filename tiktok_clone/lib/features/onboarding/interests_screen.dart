@@ -106,8 +106,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
           child: Text(
             "Choose your interests",
             style: TextStyle(
-              color: Colors.black,
-              fontSize: Sizes.size16 + Sizes.size2,
+              fontSize: Sizes.size18,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -136,7 +135,6 @@ class _InterestsScreenState extends State<InterestsScreen> {
                   "Get better video recommendations",
                   style: TextStyle(
                     fontSize: Sizes.size20,
-                    color: Colors.black45,
                   ),
                 ),
                 Gaps.v64,
@@ -158,7 +156,6 @@ class _InterestsScreenState extends State<InterestsScreen> {
       bottomNavigationBar: BottomAppBar(
         elevation: 2,
         height: Sizes.size60 * 2,
-        color: Colors.white,
         child: Padding(
           padding: EdgeInsets.symmetric(
             vertical: Sizes.size16,

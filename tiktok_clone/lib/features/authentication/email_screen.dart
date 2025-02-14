@@ -112,7 +112,6 @@ class _EmailScreenState extends State<EmailScreen> {
                 "You can always change this later.",
                 style: TextStyle(
                   fontSize: Sizes.size16,
-                  color: Colors.black45,
                 ),
               ),
               Gaps.v16,

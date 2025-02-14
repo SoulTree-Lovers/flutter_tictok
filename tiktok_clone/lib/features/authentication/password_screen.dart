@@ -117,7 +117,6 @@ class _PasswordScreenState extends State<PasswordScreen> {
                       onTap: _onClearTap,
                       child: FaIcon(
                         FontAwesomeIcons.solidCircleXmark,
-                        color: Colors.grey.shade400,
                         size: Sizes.size20,
                       ),
                     ),
@@ -140,7 +139,6 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 'Your password must have:',
                 style: TextStyle(
                   fontSize: Sizes.size14,
-                  color: Colors.black,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -159,7 +157,6 @@ class _PasswordScreenState extends State<PasswordScreen> {
                     'At least 8 characters',
                     style: TextStyle(
                       fontSize: Sizes.size14,
-                      color: Colors.black,
                     ),
                   ),
                 ],

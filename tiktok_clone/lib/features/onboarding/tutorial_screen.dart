@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/main_navigation/main_navigation_screen.dart';
+import 'package:tictok_clone/utils/utils.dart';
 
 enum Direction {
   up,
@@ -86,6 +87,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ),
         ),
         bottomNavigationBar: BottomAppBar(
+          color: isDarkMode(context) ? Colors.black : Colors.white,
           height: Sizes.size60 * 2,
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -101,6 +103,10 @@ class _TutorialScreenState extends State<TutorialScreen> {
                 color: Theme.of(context).primaryColor,
                 child: Text(
                   'Enter the app!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: Sizes.size20,
+                  ),
                 ),
               ),
             ),

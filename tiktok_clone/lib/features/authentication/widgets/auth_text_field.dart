@@ -44,7 +44,6 @@ class AuthTextField extends StatelessWidget {
         hintText: hintText ?? "",
         errorText: errorText,
         hintStyle: TextStyle(
-          color: Colors.black38,
         ),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(

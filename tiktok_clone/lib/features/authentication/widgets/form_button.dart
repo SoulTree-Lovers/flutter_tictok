@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:tictok_clone/utils/utils.dart';
 
 import '../../../constants/sizes.dart';
 
@@ -15,8 +15,6 @@ class FormButton extends StatelessWidget {
     required this.text,
   });
 
-
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -25,7 +23,11 @@ class FormButton extends StatelessWidget {
         widthFactor: 1,
         child: AnimatedContainer(
           decoration: BoxDecoration(
-            color: disabled ? Colors.grey.shade200 : Theme.of(context).primaryColor,
+            color: disabled
+                ? isDarkMode(context)
+                    ? Colors.grey.shade800
+                    : Colors.grey.shade300
+                : Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(Sizes.size6),
           ),
           duration: Duration(milliseconds: 300),

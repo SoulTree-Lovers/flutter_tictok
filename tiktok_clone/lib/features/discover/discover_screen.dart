@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/constants/breakpoints.dart';
+import 'package:tictok_clone/utils/utils.dart';
 
 import '../../constants/gaps.dart';
 import '../../constants/sizes.dart';
@@ -96,6 +97,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                 maxWidth: Breakpoints.sm,
               ),
               child: CupertinoSearchTextField(
+                style: TextStyle(
+                  color: isDarkMode(context) ? Colors.white : Colors.black,
+                ),
                 onChanged: _onSearchChanged,
                 onSubmitted: _onSearchSubmitted,
                 controller: _searchController, // ✅ TextEditingController 적용
@@ -106,13 +110,10 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             controller: _tabController,  // ✅ TabController 적용
             splashFactory: NoSplash.splashFactory,
             isScrollable: true,
-            unselectedLabelColor: Colors.grey.shade600,
-            labelColor: Colors.black,
             labelStyle: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: Sizes.size16,
             ),
-            indicatorColor: Colors.black,
             tabs: [for (final tab in tabs) Tab(text: tab)],
           ),
         ),
@@ -157,7 +158,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                           ),
                           Gaps.v8,
                           Text(
-                            "${constraints.maxWidth} This is a title of the video that is very long and it will be cut off at some point",
+                            "This is a title of the video that is very long and it will be cut off at some point",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -169,7 +170,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                           if (constraints.maxWidth < 200 || constraints.maxWidth > 250)
                           DefaultTextStyle(
                             style: TextStyle(
-                              color: Colors.grey.shade600,
+                              color: isDarkMode(context) ? Colors.grey.shade300 : Colors.grey.shade600,
                               fontSize: Sizes.size12,
                               fontWeight: FontWeight.bold,
                             ),

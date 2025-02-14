@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tictok_clone/utils/utils.dart';
 
 import '../../../constants/sizes.dart';
 
@@ -44,13 +45,13 @@ class PostVideoButton extends StatelessWidget {
           height: Sizes.size40,
           padding: EdgeInsets.symmetric(horizontal: Sizes.size12),
           decoration: BoxDecoration(
-            color: !inverted ? Colors.white : Colors.black,
+            color: !inverted || isDarkMode(context) ? Colors.white : Colors.black,
             borderRadius: BorderRadius.circular(Sizes.size12),
           ),
           child: Center(
             child: FaIcon(
               FontAwesomeIcons.plus,
-              color: !inverted ? Colors.black : Colors.white,
+              color: !inverted || isDarkMode(context) ? Colors.black : Colors.white,
               size: Sizes.size20,
             ),
           ),

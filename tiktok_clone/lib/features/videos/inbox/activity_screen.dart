@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
+import 'package:tictok_clone/utils/utils.dart';
 
 class ActivityScreen extends StatefulWidget {
   const ActivityScreen({super.key});
@@ -135,7 +136,6 @@ class _ActivityScreenState extends State<ActivityScreen>
                   style: TextStyle(
                     fontSize: Sizes.size14,
                     fontWeight: FontWeight.w600,
-                    color: Colors.grey.shade500,
                   ),
                 ),
               ),
@@ -184,7 +184,7 @@ class _ActivityScreenState extends State<ActivityScreen>
                       width: Sizes.size52,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.white,
+                        color: Theme.of(context).appBarTheme.backgroundColor,
                         border: Border.all(
                           color: Colors.grey.shade400,
                           width: 1,
@@ -198,8 +198,8 @@ class _ActivityScreenState extends State<ActivityScreen>
                       text: TextSpan(
                           text: "Account updates:",
                           style: TextStyle(
+                            color: isDarkMode(context) ? null : Colors.black,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black,
                             fontSize: Sizes.size16,
                           ),
                           children: [
@@ -239,7 +239,7 @@ class _ActivityScreenState extends State<ActivityScreen>
             position: _panelAnimation,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).appBarTheme.backgroundColor,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(Sizes.size20),
                   bottomRight: Radius.circular(Sizes.size20),
@@ -252,9 +252,8 @@ class _ActivityScreenState extends State<ActivityScreen>
                     ListTile(
                       title: Row(
                         children: [
-                          FaIcon(
+                          Icon(
                             tab["icon"],
-                            color: Colors.black,
                             size: Sizes.size16,
                           ),
                           Gaps.h20,

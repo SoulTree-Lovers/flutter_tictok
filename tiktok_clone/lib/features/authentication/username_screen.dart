@@ -57,8 +57,6 @@ class _UsernameScreenState extends State<UsernameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
           'Sign Up',
@@ -82,7 +80,6 @@ class _UsernameScreenState extends State<UsernameScreen> {
               "You can always change this later.",
               style: TextStyle(
                 fontSize: Sizes.size16,
-                color: Colors.black45,
               ),
             ),
             Gaps.v16,
