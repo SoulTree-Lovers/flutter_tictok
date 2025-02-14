@@ -1,12 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:tictok_clone/features/authentication/sign_up_screen.dart';
-import 'package:tictok_clone/features/discover/discover_screen.dart';
 import 'package:tictok_clone/features/main_navigation/main_navigation_screen.dart';
-import 'package:tictok_clone/features/onboarding/tutorial_screen.dart';
-import 'package:tictok_clone/features/videos/inbox/activity_screen.dart';
 import 'constants/sizes.dart';
+import 'package:flutter_gen/gen_l10n/intl_generated.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Flutter 엔진 초기화
@@ -35,6 +33,8 @@ class TikTokApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'TikTok',
       themeMode: ThemeMode.system,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
         tabBarTheme: TabBarTheme(
           unselectedLabelColor: Colors.grey.shade600,
@@ -88,7 +88,7 @@ class TikTokApp extends StatelessWidget {
           indicatorColor: Colors.white,
         ),
       ),
-      home: MainNavigationScreen(),
+      home: SignUpScreen(),
     );
   }
 }
