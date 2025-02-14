@@ -1,0 +1,23 @@
+{
+  "signUpTitle":"Sign Up for {nameOfTheApp}",
+  "@signUpTitle": {
+    "description": "Title for the sign up page",
+    "placeholders": {
+      "nameOfTheApp": {
+        "type": "String",
+        "example": "TikTok"
+      }
+    }
+  },
+  "loginTitle":"Log into your {nameOfTheApp} account",
+  "@loginTitle": {
+    "description": "Title for the login page",
+    "placeholders": {
+      "nameOfTheApp": {
+        "type": "String",
+        "example": "TikTok"
+      }
+    }
+  }
+
+}

@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tictok_clone/features/authentication/sign_up_screen.dart';
 import 'package:tictok_clone/features/main_navigation/main_navigation_screen.dart';
 import 'constants/sizes.dart';
-import 'package:flutter_gen/gen_l10n/intl_generated.dart';
+import 'generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Flutter 엔진 초기화
@@ -33,8 +34,16 @@ class TikTokApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'TikTok',
       themeMode: ThemeMode.system,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: [
+        S.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en'),
+        const Locale('ko'),
+      ],
       theme: ThemeData(
         tabBarTheme: TabBarTheme(
           unselectedLabelColor: Colors.grey.shade600,

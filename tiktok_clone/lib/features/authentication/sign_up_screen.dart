@@ -4,10 +4,8 @@ import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/authentication/username_screen.dart';
 import 'package:tictok_clone/features/authentication/widgets/auth_button.dart';
-import 'package:tictok_clone/utils/utils.dart';
-import 'package:flutter_gen/gen_l10n/intl_generated.dart';
 
-import 'email_screen.dart';
+import '../../generated/l10n.dart';
 import 'login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -52,7 +50,7 @@ class SignUpScreen extends StatelessWidget {
                 children: [
                   Gaps.v80,
                   Text(
-                    AppLocalizations.of(context)!.signUpTitle("TikTok"),
+                    S.of(context).signUpTitle("TikTok"),
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   Gaps.v20,
