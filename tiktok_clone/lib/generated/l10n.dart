@@ -74,6 +74,16 @@ class S {
       args: [nameOfTheApp],
     );
   }
+
+  /// `Create a profile, follow other accounts, make your own {videoCount, plural, =0{no videos} =1{1 video} other{# videos}} and more!`
+  String signUpSubtitle(num videoCount) {
+    return Intl.message(
+      'Create a profile, follow other accounts, make your own ${Intl.plural(videoCount, zero: 'no videos', one: '1 video', other: '# videos')} and more!',
+      name: 'signUpSubtitle',
+      desc: '',
+      args: [videoCount],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

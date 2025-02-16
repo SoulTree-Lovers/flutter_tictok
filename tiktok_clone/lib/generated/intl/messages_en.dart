@@ -22,11 +22,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(nameOfTheApp) => "Log into your ${nameOfTheApp} account";
 
-  static String m1(nameOfTheApp) => "Sign Up for ${nameOfTheApp}";
+  static String m1(videoCount) =>
+      "Create a profile, follow other accounts, make your own ${Intl.plural(videoCount, zero: 'no videos', one: '1 video', other: '# videos')} and more!";
+
+  static String m2(nameOfTheApp) => "Sign Up for ${nameOfTheApp}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "loginTitle": m0,
-    "signUpTitle": m1,
+    "signUpSubtitle": m1,
+    "signUpTitle": m2,
   };
 }

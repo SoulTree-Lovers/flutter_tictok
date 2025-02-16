@@ -57,7 +57,7 @@ class SignUpScreen extends StatelessWidget {
                   Opacity(
                     opacity: 0.7,
                     child: Text(
-                      'Create a profile, follow other accounts, make your own videos, and more.',
+                      S.of(context).signUpSubtitle(2),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: Sizes.size16,
