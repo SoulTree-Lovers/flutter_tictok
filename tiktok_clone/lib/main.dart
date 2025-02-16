@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tictok_clone/features/authentication/email_screen.dart';
 import 'package:tictok_clone/features/authentication/login_screen.dart';
 import 'package:tictok_clone/features/authentication/sign_up_screen.dart';
 import 'package:tictok_clone/features/authentication/username_screen.dart';
@@ -107,6 +108,7 @@ class TikTokApp extends StatelessWidget {
         SignUpScreen.routeName : (context) => SignUpScreen(),
         UsernameScreen.routeName : (context) => UsernameScreen(),
         LoginScreen.routeName : (context) => LoginScreen(),
+        EmailScreen.routeName : (context) => EmailScreen(),
       },
     );
   }

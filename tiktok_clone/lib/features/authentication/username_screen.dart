@@ -8,6 +8,7 @@ import 'email_screen.dart';
 
 class UsernameScreen extends StatefulWidget {
   static const String routeName = "/username";
+
   const UsernameScreen({super.key});
 
   @override
@@ -47,12 +48,9 @@ class _UsernameScreenState extends State<UsernameScreen> {
     if (_username.isEmpty) {
       return;
     }
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => EmailScreen(
-          username: _username,
-        ),
-      ),
+    Navigator.of(context).pushNamed(
+      EmailScreen.routeName,
+      arguments: EmailScreenArgs(username: _username),
     );
   }
 
