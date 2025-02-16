@@ -4,6 +4,8 @@ import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/utils/utils.dart';
 
+import '../../../generated/l10n.dart';
+
 class VideoComments extends StatefulWidget {
   const VideoComments({super.key});
 
@@ -51,7 +53,9 @@ class _VideoCommentsState extends State<VideoComments> {
         appBar: AppBar(
           backgroundColor: isDarkMode(context) ? null : Colors.grey.shade50,
           automaticallyImplyLeading: false,
-          title: Text("304 Comments"),
+          title: Text(
+            S.of(context).commentTitle(33300),
+          ),
           actions: [
             IconButton(
               onPressed: _onClosePressed,

@@ -94,6 +94,51 @@ class S {
       args: [gender],
     );
   }
+
+  /// `{potato}`
+  String likeCount(int potato) {
+    final NumberFormat potatoNumberFormat = NumberFormat.compact(
+      locale: Intl.getCurrentLocale(),
+    );
+    final String potatoString = potatoNumberFormat.format(potato);
+
+    return Intl.message(
+      '$potatoString',
+      name: 'likeCount',
+      desc: 'The number of likes on a post',
+      args: [potatoString],
+    );
+  }
+
+  /// `{potato}`
+  String commentCount(int potato) {
+    final NumberFormat potatoNumberFormat = NumberFormat.compact(
+      locale: Intl.getCurrentLocale(),
+    );
+    final String potatoString = potatoNumberFormat.format(potato);
+
+    return Intl.message(
+      '$potatoString',
+      name: 'commentCount',
+      desc: 'The number of likes on a post',
+      args: [potatoString],
+    );
+  }
+
+  /// `{value} comments`
+  String commentTitle(int value) {
+    final NumberFormat valueNumberFormat = NumberFormat.compact(
+      locale: Intl.getCurrentLocale(),
+    );
+    final String valueString = valueNumberFormat.format(value);
+
+    return Intl.message(
+      '$valueString comments',
+      name: 'commentTitle',
+      desc: 'The number of comments on a post',
+      args: [valueString],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

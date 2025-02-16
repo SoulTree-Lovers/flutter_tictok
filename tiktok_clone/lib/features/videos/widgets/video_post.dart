@@ -8,6 +8,8 @@ import 'package:tictok_clone/features/videos/widgets/video_comments.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import '../../../generated/l10n.dart';
+
 class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
   final int index;
@@ -212,14 +214,14 @@ class _VideoPostState extends State<VideoPost>
                 Gaps.v24,
                 VideoButton(
                   icon: FontAwesomeIcons.solidHeart,
-                  text: "2.9M",
+                  text: S.of(context).likeCount(1932131242),
                 ),
                 Gaps.v24,
                 GestureDetector(
                   onTap: () => _onCommentsTap(context),
                   child: VideoButton(
                     icon: FontAwesomeIcons.solidComment,
-                    text: "33K",
+                    text: S.of(context).commentCount(33300),
                   ),
                 ),
                 Gaps.v24,
