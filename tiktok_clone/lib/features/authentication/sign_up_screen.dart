@@ -31,7 +31,7 @@ class SignUpScreen extends StatelessWidget {
     //   ),
     // );
     // Navigator.of(context).pushNamed(UsernameScreen.routeName);
-    context.push("/users/hello?show=likes");
+    context.push(UsernameScreen.routeName);
   }
 
   @override

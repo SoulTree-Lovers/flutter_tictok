@@ -15,9 +15,10 @@ class EmailScreenArgs {
 
 class EmailScreen extends StatefulWidget {
   static const String routeName = "/email";
+  final String username;
 
   const EmailScreen({
-    super.key,
+    super.key, required this.username,
   });
 
   @override
@@ -115,7 +116,7 @@ class _EmailScreenState extends State<EmailScreen> {
             children: [
               Gaps.v40,
               Text(
-                "What is your email?",
+                "What is your email, ${widget.username}?",
                 style: TextStyle(
                   fontSize: Sizes.size20,
                   fontWeight: FontWeight.w700,
