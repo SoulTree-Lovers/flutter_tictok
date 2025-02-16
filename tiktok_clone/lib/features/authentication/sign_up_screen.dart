@@ -10,7 +10,8 @@ import '../../generated/l10n.dart';
 import 'login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
-  static const String routeName = "/";
+  static const String routeUrl = "/";
+  static const String routeName = "sign_up";
 
   const SignUpScreen({super.key});
 
@@ -32,7 +33,7 @@ class SignUpScreen extends StatelessWidget {
     // );
     // Navigator.of(context).pushNamed(UsernameScreen.routeName);
     // context.push(UsernameScreen.routeName);
-    context.pushNamed("username_screen");
+    context.pushNamed(UsernameScreen.routeName);
   }
 
   @override
