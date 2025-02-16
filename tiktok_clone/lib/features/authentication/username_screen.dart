@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/authentication/widgets/auth_text_field.dart';
@@ -48,9 +49,12 @@ class _UsernameScreenState extends State<UsernameScreen> {
     if (_username.isEmpty) {
       return;
     }
-    Navigator.of(context).pushNamed(
+    // Navigator.of(context).pushNamed(
+    //   EmailScreen.routeName,
+    //   arguments: EmailScreenArgs(username: _username),
+    // );
+    context.push(
       EmailScreen.routeName,
-      arguments: EmailScreenArgs(username: _username),
     );
   }
 

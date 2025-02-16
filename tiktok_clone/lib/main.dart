@@ -7,6 +7,7 @@ import 'package:tictok_clone/features/authentication/login_screen.dart';
 import 'package:tictok_clone/features/authentication/sign_up_screen.dart';
 import 'package:tictok_clone/features/authentication/username_screen.dart';
 import 'package:tictok_clone/features/main_navigation/main_navigation_screen.dart';
+import 'package:tictok_clone/router.dart';
 import 'constants/sizes.dart';
 import 'generated/l10n.dart';
 
@@ -34,9 +35,10 @@ class TikTokApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // S.load(Locale('en')); // 언어 설정 강제
-    S.load(Locale('ko')); // 언어 설정 강제
+    // S.load(Locale('ko')); // 언어 설정 강제
 
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
       title: 'TikTok',
       themeMode: ThemeMode.system,
@@ -103,13 +105,7 @@ class TikTokApp extends StatelessWidget {
           indicatorColor: Colors.white,
         ),
       ),
-      initialRoute: SignUpScreen.routeName,
-      routes: {
-        SignUpScreen.routeName : (context) => SignUpScreen(),
-        UsernameScreen.routeName : (context) => UsernameScreen(),
-        LoginScreen.routeName : (context) => LoginScreen(),
-        EmailScreen.routeName : (context) => EmailScreen(),
-      },
+
     );
   }
 }
