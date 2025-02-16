@@ -8,14 +8,18 @@ import 'package:tictok_clone/utils/utils.dart';
 import '../../constants/sizes.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({super.key});
+  final String username;
+
+  const UserProfileScreen({
+    super.key,
+    required this.username,
+  });
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
-
   void _onSettingsButtonTap() {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -32,10 +36,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         child: DefaultTabController(
           length: 2,
           child: NestedScrollView(
-            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
               return [
                 SliverAppBar(
-                  title: Text("승민"),
+                  title: Text(widget.username),
                   actions: [
                     IconButton(
                       onPressed: _onSettingsButtonTap,
@@ -61,7 +66,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "@승민",
+                            "@${widget.username}",
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 20,
@@ -200,8 +205,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         ],
                       ),
                       Gaps.v20,
-
-
                     ],
                   ),
                 ),
