@@ -146,7 +146,7 @@ class SignUpScreen extends StatelessWidget {
                     InkWell(
                       onTap: () => _onLoginTap(context),
                       child: Text(
-                        'Log In',
+                        S.of(context).logIn("male"),
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.w600,

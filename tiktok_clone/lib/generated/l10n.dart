@@ -84,6 +84,16 @@ class S {
       args: [videoCount],
     );
   }
+
+  /// `Log In {gender, select, male{sir} female{madam} other{human}}`
+  String logIn(String gender) {
+    return Intl.message(
+      'Log In ${Intl.gender(gender, male: 'sir', female: 'madam', other: 'human')}',
+      name: 'logIn',
+      desc: '',
+      args: [gender],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
