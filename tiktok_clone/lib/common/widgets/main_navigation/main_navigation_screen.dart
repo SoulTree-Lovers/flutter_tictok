@@ -9,7 +9,8 @@ import 'package:tictok_clone/common/widgets/main_navigation/stf_screen.dart';
 import 'package:tictok_clone/common/widgets/main_navigation/widgets/nav_tab.dart';
 import 'package:tictok_clone/common/widgets/main_navigation/widgets/post_video_button.dart';
 import 'package:tictok_clone/features/users/user_profile_screen.dart';
-import 'package:tictok_clone/features/videos/inbox/inbox_screen.dart';
+import 'package:tictok_clone/features/inbox/inbox_screen.dart';
+import 'package:tictok_clone/features/videos/video_recording_screen.dart';
 import 'package:tictok_clone/features/videos/video_timeline_screen.dart';
 import 'package:tictok_clone/utils/utils.dart';
 
@@ -44,24 +45,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   }
 
   void _onPostVideoButtonTap() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => Scaffold(
-          appBar: AppBar(
-            title: Text("Record Video"),
-          ),
-          body: Center(
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("Close"),
-            ),
-          ),
-        ),
-        fullscreenDialog: true,
-      ),
-    );
+    context.pushNamed(VideoRecordingScreen.routeName);
   }
 
   @override

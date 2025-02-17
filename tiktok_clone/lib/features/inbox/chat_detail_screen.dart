@@ -3,7 +3,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 
 class ChatDetailScreen extends StatefulWidget {
-  const ChatDetailScreen({super.key});
+  static const String routeName = "chat_detail";
+  static const String routeUrl = ":chatId";
+  final String chatId;
+
+  const ChatDetailScreen({
+    super.key,
+    required this.chatId,
+  });
 
   @override
   State<ChatDetailScreen> createState() => _ChatDetailScreenState();
@@ -44,7 +51,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             ],
           ),
           title: Text(
-            "승민",
+            "승민 ${widget.chatId}",
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w600,
@@ -169,7 +176,6 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
               ),
             ),
           ),
-
         ],
       ),
     );

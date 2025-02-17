@@ -13,6 +13,9 @@ import 'package:tictok_clone/features/videos/video_preview_screen.dart';
 import '../../constants/sizes.dart';
 
 class VideoRecordingScreen extends StatefulWidget {
+  static const String routeName = "video_recording";
+  static const String routeUrl = "/video_recording";
+
   const VideoRecordingScreen({super.key});
 
   @override
