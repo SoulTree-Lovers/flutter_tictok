@@ -28,14 +28,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: ListView(
         children: [
-          SwitchListTile.adaptive(
-            title: Text("Auto mute videos"),
-            subtitle: Text("Videos will be muted by default"),
-            // activeColor: Colors.black,
-            value: VideoConfigData.of(context).autoMute,
-            onChanged: (value) {
-              VideoConfigData.of(context).toggleMuted();
-            },
+          AnimatedBuilder(
+            animation: videoConfig,
+            builder: (BuildContext context, Widget? child) =>
+                SwitchListTile.adaptive(
+              title: Text("Auto mute videos"),
+              subtitle: Text("Videos will be muted by default"),
+              // activeColor: Colors.black,
+              value: videoConfig.autoMuted,
+              onChanged: (value) {
+                videoConfig.toggleAutoMute();
+              },
+            ),
           ),
           CupertinoSwitch(
             value: _notifications,

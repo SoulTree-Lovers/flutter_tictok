@@ -32,6 +32,9 @@ class _VideoPostState extends State<VideoPost>
   );
 
   bool _isPaused = false;
+
+  bool _autoMuted = videoConfig.autoMuted;
+
   final Duration _animationDuration = Duration(milliseconds: 300);
   late final AnimationController _animationController;
 
@@ -69,6 +72,12 @@ class _VideoPostState extends State<VideoPost>
       upperBound: 1.5,
       value: 1.5,
     );
+
+    videoConfig.addListener(() {
+      setState(() {
+        _autoMuted = videoConfig.autoMuted;
+      });
+    });
   }
 
   @override
@@ -130,10 +139,6 @@ class _VideoPostState extends State<VideoPost>
   Widget build(BuildContext context) {
     print("build"); // 빌드 호출 확인
 
-    final videoConfig = VideoConfigData.of(context);
-
-    print(videoConfig.autoMute);
-
     return VisibilityDetector(
       key: Key("${widget.index}"),
       onVisibilityChanged: _onVisibilityChanged,
@@ -179,9 +184,9 @@ class _VideoPostState extends State<VideoPost>
             top: Sizes.size52,
             left: Sizes.size32,
             child: IconButton(
-              onPressed: VideoConfigData.of(context).toggleMuted,
+              onPressed: videoConfig.toggleAutoMute,
               icon: FaIcon(
-                videoConfig.autoMute ? FontAwesomeIcons.volumeXmark : FontAwesomeIcons.volumeHigh,
+                _autoMuted ? FontAwesomeIcons.volumeXmark : FontAwesomeIcons.volumeHigh,
                 color: Colors.black38,
               ),
             ),

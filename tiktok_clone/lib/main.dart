@@ -33,8 +33,8 @@ class TikTokApp extends StatelessWidget {
     // S.load(Locale('en')); // 언어 설정 강제
     // S.load(Locale('ko')); // 언어 설정 강제
 
-    return VideoConfig(
-      child: MaterialApp.router(
+    return
+      MaterialApp.router(
         routerConfig: router,
         debugShowCheckedModeBanner: false,
         title: 'TikTok',
@@ -102,8 +102,6 @@ class TikTokApp extends StatelessWidget {
             indicatorColor: Colors.white,
           ),
         ),
-
-      ),
     );
   }
 }
