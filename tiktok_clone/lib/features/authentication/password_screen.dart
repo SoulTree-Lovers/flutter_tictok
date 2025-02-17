@@ -8,7 +8,7 @@ import 'package:tictok_clone/features/authentication/widgets/auth_text_field.dar
 import 'package:tictok_clone/features/authentication/widgets/form_button.dart';
 
 class PasswordScreen extends StatefulWidget {
-  const PasswordScreen({super.key});
+  const  PasswordScreen({super.key});
 
   @override
   State<PasswordScreen> createState() => _PasswordScreenState();

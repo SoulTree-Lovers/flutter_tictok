@@ -8,7 +8,9 @@ import 'package:tictok_clone/features/authentication/login_form_screen.dart';
 import 'package:tictok_clone/features/authentication/widgets/auth_button.dart';
 
 class LoginScreen extends StatelessWidget {
-  static const String routeName = "/login";
+  static const String routeName = "login";
+  static const String routeUrl = "/login";
+
   const LoginScreen({super.key});
 
   void _onSignUpTap(BuildContext context) {
@@ -17,13 +19,18 @@ class LoginScreen extends StatelessWidget {
   }
 
   void _onEmailLoginTap(BuildContext context) {
-    Navigator.of(context).push(
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) => LoginFormScreen(),
+    //   ),
+    // );
+    Navigator.push(
+      context,
       MaterialPageRoute(
         builder: (context) => LoginFormScreen(),
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

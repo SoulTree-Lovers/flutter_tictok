@@ -10,8 +10,8 @@ import '../../generated/l10n.dart';
 import 'login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
-  static const String routeUrl = "/";
   static const String routeName = "sign_up";
+  static const String routeUrl = "/";
 
   const SignUpScreen({super.key});
 
@@ -22,7 +22,7 @@ class SignUpScreen extends StatelessWidget {
     //   ),
     // );
     // Navigator.of(context).pushNamed(LoginScreen.routeName);
-    context.push(LoginScreen.routeName);
+    context.pushNamed(LoginScreen.routeName);
   }
 
   void _onEmailTap(BuildContext context) {
@@ -31,16 +31,20 @@ class SignUpScreen extends StatelessWidget {
     //     builder: (context) => UsernameScreen(),
     //   ),
     // );
-    // Navigator.of(context).pushNamed(UsernameScreen.routeName);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => UsernameScreen(),
+      ),
+    );
     // context.push(UsernameScreen.routeName);
-    context.pushNamed(UsernameScreen.routeName);
+    // context.pushNamed(UsernameScreen.routeName);
   }
 
   @override
   Widget build(BuildContext context) {
     return OrientationBuilder(
       builder: (BuildContext context, Orientation orientation) {
-
         if (orientation == Orientation.landscape) {
           return Scaffold(
             body: Center(

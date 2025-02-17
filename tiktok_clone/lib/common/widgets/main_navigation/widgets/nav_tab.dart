@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/utils/utils.dart';
 
-import '../../../constants/gaps.dart';
+import '../../../../constants/gaps.dart';
 
 class NavTab extends StatelessWidget {
   final String text;

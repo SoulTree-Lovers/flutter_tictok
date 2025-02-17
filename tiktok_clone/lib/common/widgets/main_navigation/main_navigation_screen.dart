@@ -1,28 +1,42 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/discover/discover_screen.dart';
-import 'package:tictok_clone/features/main_navigation/stf_screen.dart';
-import 'package:tictok_clone/features/main_navigation/widgets/nav_tab.dart';
-import 'package:tictok_clone/features/main_navigation/widgets/post_video_button.dart';
+import 'package:tictok_clone/common/widgets/main_navigation/stf_screen.dart';
+import 'package:tictok_clone/common/widgets/main_navigation/widgets/nav_tab.dart';
+import 'package:tictok_clone/common/widgets/main_navigation/widgets/post_video_button.dart';
 import 'package:tictok_clone/features/users/user_profile_screen.dart';
 import 'package:tictok_clone/features/videos/inbox/inbox_screen.dart';
 import 'package:tictok_clone/features/videos/video_timeline_screen.dart';
 import 'package:tictok_clone/utils/utils.dart';
 
 class MainNavigationScreen extends StatefulWidget {
-  const MainNavigationScreen({super.key});
+  static const String routeName = "main_navigation";
+  static const String routeUrl = "/main";
+
+  final String tab;
+
+  const MainNavigationScreen({
+    super.key,
+    required this.tab,
+  });
 
   @override
   State<MainNavigationScreen> createState() => _MainNavigationScreenState();
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _currentIndex = 0;
+  final List<String> _tabs = [
+    "home", "discover", "xxxx", "inbox", "profile",
+  ];
+
+  late int _currentIndex = _tabs.indexOf(widget.tab);
 
   void _onTap(int index) {
+    context.go("/${_tabs[index]}");
     setState(() {
       _currentIndex = index;
     });
@@ -54,7 +68,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, // 키보드가 올라와도 화면이 줄어들지 않음
-      backgroundColor: _currentIndex == 0 || isDarkMode(context) ? Colors.black : Colors.white,
+      backgroundColor: _currentIndex == 0 || isDarkMode(context)
+          ? Colors.black
+          : Colors.white,
       body: Stack(
         children: [
           Offstage(
@@ -79,7 +95,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: _currentIndex == 0 || isDarkMode(context) ? Colors.black : Colors.white,
+        color: _currentIndex == 0 || isDarkMode(context)
+            ? Colors.black
+            : Colors.white,
         height: Sizes.size40 * 2.6,
         child: Padding(
           padding: const EdgeInsets.all(Sizes.size12),
