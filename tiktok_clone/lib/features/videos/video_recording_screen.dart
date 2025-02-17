@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tictok_clone/constants/gaps.dart';
+import 'package:tictok_clone/features/videos/video_preview_screen.dart';
 
 import '../../constants/sizes.dart';
 
@@ -49,9 +50,12 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     _cameraController = CameraController(
       cameras[_isSelfieMode ? 1 : 0],
       ResolutionPreset.ultraHigh,
+      enableAudio: false,
     );
 
     await _cameraController.initialize();
+    await _cameraController
+        .prepareForVideoRecording(); // iOS only: 비디오 녹화 싱크 안 맞는 문제 해결
 
     _flashMode = _cameraController.value.flashMode;
   }
@@ -105,16 +109,48 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     setState(() {});
   }
 
-  void _startRecording(TapDownDetails details) {
+  Future<void> _startRecording(TapDownDetails details) async {
     print('onTapDown: Start recording');
+    if (_cameraController.value.isRecordingVideo) {
+      return;
+    }
+
+    await _cameraController.startVideoRecording();
+
     _buttonAnimationController.forward();
     _progressAnimationController.forward();
   }
 
-  void _stopRecording(TapUpDetails details) {
+  Future<void> _stopRecording(TapUpDetails details) async {
     print('onTapUp: Stop recording');
+
+    if (!_cameraController.value.isRecordingVideo) {
+      return;
+    }
+
     _buttonAnimationController.reverse();
     _progressAnimationController.reset();
+
+    var file = await _cameraController.stopVideoRecording();
+    print("file.name: ${file.name}");
+    print("file.path: ${file.path}");
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VideoPreviewScreen(
+          video: file,
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _buttonAnimationController.dispose();
+    _progressAnimationController.dispose();
+    _cameraController.dispose();
+    super.dispose();
   }
 
   @override
