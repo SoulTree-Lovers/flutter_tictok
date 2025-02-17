@@ -19,7 +19,7 @@ class VideoRecordingScreen extends StatefulWidget {
 }
 
 class _VideoRecordingScreenState extends State<VideoRecordingScreen>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   bool _hasPermission = false;
 
   bool _isSelfieMode = false;
@@ -63,6 +63,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
         .prepareForVideoRecording(); // iOS only: 비디오 녹화 싱크 안 맞는 문제 해결
 
     _flashMode = _cameraController.value.flashMode;
+
+    setState(() {});
   }
 
   Future<void> initPermissions() async {
@@ -83,9 +85,27 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (!_hasPermission) return;
+    if (!_cameraController.value.isInitialized) return;
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.inactive) {
+      _cameraController.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      initCamera();
+
+    }
+
+    print("state = $state");
+  }
+
+  @override
   void initState() {
     super.initState();
     initPermissions();
+    WidgetsBinding.instance.addObserver(this); // 앱 상태 변화 감지
+
     _progressAnimationController.addListener(
       () {
         setState(() {});
@@ -197,7 +217,6 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
