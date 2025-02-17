@@ -35,9 +35,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               title: Text("Auto mute videos"),
               subtitle: Text("Videos will be muted by default"),
               // activeColor: Colors.black,
-              value: videoConfig.autoMuted,
+              value: videoConfig.value,
               onChanged: (value) {
-                videoConfig.toggleAutoMute();
+                videoConfig.value = !videoConfig.value;
               },
             ),
           ),
