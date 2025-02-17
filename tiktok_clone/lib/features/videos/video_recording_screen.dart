@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:gallery_saver_plus/gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/features/videos/video_preview_screen.dart';
@@ -132,13 +135,17 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     _progressAnimationController.reset();
 
     var file = await _cameraController.stopVideoRecording();
+    String newPath = file.path.replaceAll('.temp', '.mp4');
+    File newFile = File(newPath);
+    await newFile.writeAsBytes(await file.readAsBytes());
+
     print("file.name: ${file.name}");
     print("file.path: ${file.path}");
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => VideoPreviewScreen(
-          video: file,
+          video: newFile,
         ),
       ),
     );
