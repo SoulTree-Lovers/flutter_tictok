@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tictok_clone/common/widgets/video_config/video_config.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/videos/widgets/video_button.dart';
@@ -129,6 +130,10 @@ class _VideoPostState extends State<VideoPost>
   Widget build(BuildContext context) {
     print("build"); // 빌드 호출 확인
 
+    final videoConfig = VideoConfigData.of(context);
+
+    print(videoConfig.autoMute);
+
     return VisibilityDetector(
       key: Key("${widget.index}"),
       onVisibilityChanged: _onVisibilityChanged,
@@ -167,6 +172,17 @@ class _VideoPostState extends State<VideoPost>
                     ),
                   ),
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: Sizes.size52,
+            left: Sizes.size32,
+            child: IconButton(
+              onPressed: VideoConfigData.of(context).toggleMuted,
+              icon: FaIcon(
+                videoConfig.autoMute ? FontAwesomeIcons.volumeXmark : FontAwesomeIcons.volumeHigh,
+                color: Colors.black38,
               ),
             ),
           ),
