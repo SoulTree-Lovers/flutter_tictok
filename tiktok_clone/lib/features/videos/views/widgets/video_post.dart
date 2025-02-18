@@ -5,12 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:tictok_clone/common/widgets/video_config/video_config.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
+import 'package:tictok_clone/features/videos/viewmodels/playback_config_vm.dart';
 import 'package:tictok_clone/features/videos/views/widgets/video_button.dart';
 import 'package:tictok_clone/features/videos/views/widgets/video_comments.dart';
 import 'package:tictok_clone/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-
 
 class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
@@ -79,6 +79,17 @@ class _VideoPostState extends State<VideoPost>
     //     _autoMuted = videoConfig.value;
     //   });
     // });
+    context.read<PlaybackConfigViewModel>().addListener(_onPlaybackConfigChanged);
+  }
+
+  void _onPlaybackConfigChanged() {
+    if (!mounted) return;
+    final muted = context.read<PlaybackConfigViewModel>().isMuted;
+    if (muted) {
+      _controller.setVolume(0);
+    } else {
+      _controller.setVolume(1);
+    }
   }
 
   @override
@@ -98,7 +109,12 @@ class _VideoPostState extends State<VideoPost>
     if (visibilityInfo.visibleFraction == 1 &&
         !_controller.value.isPlaying &&
         !_isPaused) {
-      _controller.play();
+
+      final autoPlay = context.read<PlaybackConfigViewModel>().isAutoPlay;
+
+      if (autoPlay) {
+        _controller.play();
+      }
     }
 
     if (_controller.value.isPlaying && visibilityInfo.visibleFraction == 0) {
@@ -186,10 +202,14 @@ class _VideoPostState extends State<VideoPost>
             left: Sizes.size32,
             child: IconButton(
               onPressed: () {
-                context.read<VideoConfig>().toggleMute();
+                context.read<PlaybackConfigViewModel>().setMuted(
+                      !context.read<PlaybackConfigViewModel>().isMuted,
+                    );
               },
               icon: FaIcon(
-                context.watch<VideoConfig>().isMuted  ? FontAwesomeIcons.volumeXmark : FontAwesomeIcons.volumeHigh,
+                context.watch<PlaybackConfigViewModel>().isMuted
+                    ? FontAwesomeIcons.volumeXmark
+                    : FontAwesomeIcons.volumeHigh,
                 color: Colors.black38,
               ),
             ),

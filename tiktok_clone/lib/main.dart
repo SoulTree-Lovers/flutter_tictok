@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tictok_clone/common/widgets/video_config/video_config.dart';
+import 'package:tictok_clone/features/videos/repository/playback_config_repo.dart';
+import 'package:tictok_clone/features/videos/viewmodels/playback_config_vm.dart';
 import 'package:tictok_clone/router.dart';
 import 'constants/sizes.dart';
 import 'generated/l10n.dart';
@@ -22,7 +25,17 @@ void main() async {
     SystemUiOverlayStyle.dark,
   );
 
-  runApp(const TikTokApp());
+  final preferences = await SharedPreferences.getInstance();
+  final repository = PlaybackConfigRepository(preferences);
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => PlaybackConfigViewModel(repository)),
+      ],
+      child: const TikTokApp(),
+    ),
+  );
 }
 
 class TikTokApp extends StatelessWidget {
@@ -34,83 +47,75 @@ class TikTokApp extends StatelessWidget {
     // S.load(Locale('en')); // 언어 설정 강제
     // S.load(Locale('ko')); // 언어 설정 강제
 
-    return
-      MultiProvider( // 여러 프로바이더를 사용할 때 사용
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => VideoConfig(),
+    return MaterialApp.router(
+      routerConfig: router,
+      debugShowCheckedModeBanner: false,
+      title: 'TikTok',
+      themeMode: ThemeMode.system,
+      localizationsDelegates: [
+        S.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en'),
+        const Locale('ko'),
+      ],
+      theme: ThemeData(
+        tabBarTheme: TabBarTheme(
+          unselectedLabelColor: Colors.grey.shade600,
+          labelColor: Colors.black,
+          indicatorColor: Colors.black,
+        ),
+        textTheme: Typography.blackMountainView,
+        brightness: Brightness.light,
+        bottomAppBarTheme: BottomAppBarTheme(
+          color: Colors.grey.shade50,
+        ),
+        useMaterial3: true,
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Color(0xFFE9435A),
+        ),
+        scaffoldBackgroundColor: Colors.white,
+        primaryColor: Color(0xFFE9435A),
+        appBarTheme: const AppBarTheme(
+          surfaceTintColor: Colors.white,
+          elevation: 0.5,
+          shadowColor: Colors.grey,
+          backgroundColor: Colors.white,
+          // foregroundColor: Colors.black,
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: Sizes.size16 + Sizes.size2,
+            fontWeight: FontWeight.w600,
           ),
-        ],
-        child: MaterialApp.router(
-          routerConfig: router,
-          debugShowCheckedModeBanner: false,
-          title: 'TikTok',
-          themeMode: ThemeMode.system,
-          localizationsDelegates: [
-            S.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: [
-            const Locale('en'),
-            const Locale('ko'),
-          ],
-          theme: ThemeData(
-            tabBarTheme: TabBarTheme(
-              unselectedLabelColor: Colors.grey.shade600,
-              labelColor: Colors.black,
-              indicatorColor: Colors.black,
-            ),
-            textTheme: Typography.blackMountainView,
-            brightness: Brightness.light,
-            bottomAppBarTheme: BottomAppBarTheme(
-              color: Colors.grey.shade50,
-            ),
-            useMaterial3: true,
-            textSelectionTheme: const TextSelectionThemeData(
-              cursorColor: Color(0xFFE9435A),
-            ),
-            scaffoldBackgroundColor: Colors.white,
-            primaryColor: Color(0xFFE9435A),
-            appBarTheme: const AppBarTheme(
-              surfaceTintColor: Colors.white,
-              elevation: 0.5,
-              shadowColor: Colors.grey,
-              backgroundColor: Colors.white,
-              // foregroundColor: Colors.black,
-              titleTextStyle: TextStyle(
-                color: Colors.black,
-                fontSize: Sizes.size16 + Sizes.size2,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+        ),
+      ),
+      darkTheme: ThemeData(
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Color(0xFFE9435A),
+        ),
+        textTheme: Typography.whiteMountainView,
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.black,
+        primaryColor: Color(0xFFE9435A),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey.shade900,
+          // foregroundColor: Colors.white,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: Sizes.size16 + Sizes.size2,
+            fontWeight: FontWeight.w600,
           ),
-          darkTheme: ThemeData(
-            textSelectionTheme: const TextSelectionThemeData(
-              cursorColor: Color(0xFFE9435A),
-            ),
-            textTheme: Typography.whiteMountainView,
-            brightness: Brightness.dark,
-            scaffoldBackgroundColor: Colors.black,
-            primaryColor: Color(0xFFE9435A),
-            appBarTheme: AppBarTheme(
-              backgroundColor: Colors.grey.shade900,
-              // foregroundColor: Colors.white,
-              titleTextStyle: TextStyle(
-                color: Colors.white,
-                fontSize: Sizes.size16 + Sizes.size2,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            tabBarTheme: TabBarTheme(
-              unselectedLabelColor: Colors.grey.shade400,
-              labelColor: Colors.white,
-              indicatorColor: Colors.white,
-            ),
-          ),
-            ),
-      );
+        ),
+        tabBarTheme: TabBarTheme(
+          unselectedLabelColor: Colors.grey.shade400,
+          labelColor: Colors.white,
+          indicatorColor: Colors.white,
+        ),
+      ),
+    );
   }
 }
 
