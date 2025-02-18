@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:tictok_clone/common/widgets/video_config/video_config.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
@@ -33,7 +34,7 @@ class _VideoPostState extends State<VideoPost>
 
   bool _isPaused = false;
 
-  bool _autoMuted = videoConfig.value;
+  // bool _autoMuted = videoConfig.value;
 
   final Duration _animationDuration = Duration(milliseconds: 300);
   late final AnimationController _animationController;
@@ -73,11 +74,11 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
     );
 
-    videoConfig.addListener(() {
-      setState(() {
-        _autoMuted = videoConfig.value;
-      });
-    });
+    // videoConfig.addListener(() {
+    //   setState(() {
+    //     _autoMuted = videoConfig.value;
+    //   });
+    // });
   }
 
   @override
@@ -185,10 +186,10 @@ class _VideoPostState extends State<VideoPost>
             left: Sizes.size32,
             child: IconButton(
               onPressed: () {
-                videoConfig.value = !videoConfig.value;
+                context.read<VideoConfig>().toggleMute();
               },
               icon: FaIcon(
-                _autoMuted ? FontAwesomeIcons.volumeXmark : FontAwesomeIcons.volumeHigh,
+                context.watch<VideoConfig>().isMuted  ? FontAwesomeIcons.volumeXmark : FontAwesomeIcons.volumeHigh,
                 color: Colors.black38,
               ),
             ),
