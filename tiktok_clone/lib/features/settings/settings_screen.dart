@@ -33,17 +33,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
           SwitchListTile.adaptive(
             title: Text("Mute Videos"),
             subtitle: Text("Videos will be muted by default"),
-            value: context.watch<PlaybackConfigViewModel>().isMuted,
+            value: false,
             onChanged: (value) {
-              context.read<PlaybackConfigViewModel>().setMuted(value);
+
             },
           ),
           SwitchListTile.adaptive(
             title: Text("Auto Play"),
             subtitle: Text("Videos will play automatically"),
-            value: context.watch<PlaybackConfigViewModel>().isAutoPlay,
+            value: false,
             onChanged: (value) {
-              context.read<PlaybackConfigViewModel>().setAutoPlay(value);
             },
           ),
           CupertinoSwitch(

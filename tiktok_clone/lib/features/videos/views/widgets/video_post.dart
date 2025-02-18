@@ -74,18 +74,11 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
     );
 
-    // videoConfig.addListener(() {
-    //   setState(() {
-    //     _autoMuted = videoConfig.value;
-    //   });
-    // });
-    context.read<PlaybackConfigViewModel>().addListener(_onPlaybackConfigChanged);
   }
 
   void _onPlaybackConfigChanged() {
     if (!mounted) return;
-    final muted = context.read<PlaybackConfigViewModel>().isMuted;
-    if (muted) {
+    if (false) {
       _controller.setVolume(0);
     } else {
       _controller.setVolume(1);
@@ -110,9 +103,7 @@ class _VideoPostState extends State<VideoPost>
         !_controller.value.isPlaying &&
         !_isPaused) {
 
-      final autoPlay = context.read<PlaybackConfigViewModel>().isAutoPlay;
-
-      if (autoPlay) {
+      if (false) {
         _controller.play();
       }
     }
@@ -202,12 +193,9 @@ class _VideoPostState extends State<VideoPost>
             left: Sizes.size32,
             child: IconButton(
               onPressed: () {
-                context.read<PlaybackConfigViewModel>().setMuted(
-                      !context.read<PlaybackConfigViewModel>().isMuted,
-                    );
               },
               icon: FaIcon(
-                context.watch<PlaybackConfigViewModel>().isMuted
+                false
                     ? FontAwesomeIcons.volumeXmark
                     : FontAwesomeIcons.volumeHigh,
                 color: Colors.black38,
