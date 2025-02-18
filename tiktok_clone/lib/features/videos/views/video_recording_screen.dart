@@ -8,9 +8,9 @@ import 'package:gallery_saver_plus/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tictok_clone/constants/gaps.dart';
-import 'package:tictok_clone/features/videos/video_preview_screen.dart';
+import 'package:tictok_clone/features/videos/views/video_preview_screen.dart';
 
-import '../../constants/sizes.dart';
+import '../../../constants/sizes.dart';
 
 class VideoRecordingScreen extends StatefulWidget {
   static const String routeName = "video_recording";
