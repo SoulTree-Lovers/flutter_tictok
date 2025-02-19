@@ -1,29 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:tictok_clone/common/widgets/video_config/video_config.dart';
 import 'package:tictok_clone/features/videos/viewmodels/playback_config_vm.dart';
 
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
 
-class _SettingsScreenState extends State<SettingsScreen> {
-  bool _notifications = false;
-
-  void _onNotificationsChanged(bool? value) {
-    if (value == null) return;
-    setState(() {
-      _notifications = value;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -33,36 +19,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
           SwitchListTile.adaptive(
             title: Text("Mute Videos"),
             subtitle: Text("Videos will be muted by default"),
-            value: false,
+            value: ref.watch(playbackConfigProvider).muted,
             onChanged: (value) {
-
+              ref.read(playbackConfigProvider.notifier).setMuted(value);
             },
           ),
           SwitchListTile.adaptive(
             title: Text("Auto Play"),
             subtitle: Text("Videos will play automatically"),
-            value: false,
+            value: ref.watch(playbackConfigProvider).autoPlay,
             onChanged: (value) {
+              ref.read(playbackConfigProvider.notifier).setAutoPlay(value);
             },
           ),
           CupertinoSwitch(
-            value: _notifications,
-            onChanged: _onNotificationsChanged,
+            value: false,
+            onChanged: (value) {},
           ),
           Switch(
-            value: _notifications,
-            onChanged: _onNotificationsChanged,
+            value: false,
+            onChanged: (value) {},
             activeColor: Colors.black,
           ),
           Checkbox(
-            value: _notifications,
-            onChanged: _onNotificationsChanged,
+            value: false,
+            onChanged: (value) {},
           ),
           CheckboxListTile(
             checkColor: Colors.white,
             activeColor: Colors.black,
-            value: _notifications,
-            onChanged: _onNotificationsChanged,
+            value: false,
+            onChanged: (value) {},
             title: Text("Notifications"),
           ),
           ListTile(
