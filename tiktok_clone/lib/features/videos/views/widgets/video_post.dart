@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:tictok_clone/common/widgets/video_config/video_config.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/videos/viewmodels/playback_config_vm.dart';
@@ -12,7 +11,7 @@ import 'package:tictok_clone/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class VideoPost extends StatefulWidget {
+class VideoPost extends ConsumerStatefulWidget {
   final Function onVideoFinished;
   final int index;
 
@@ -23,10 +22,10 @@ class VideoPost extends StatefulWidget {
   });
 
   @override
-  State<VideoPost> createState() => _VideoPostState();
+  VideoPostState createState() => VideoPostState();
 }
 
-class _VideoPostState extends State<VideoPost>
+class VideoPostState extends ConsumerState<VideoPost>
     with SingleTickerProviderStateMixin {
   final VideoPlayerController _controller = VideoPlayerController.asset(
     'assets/videos/video.mp4',
@@ -102,8 +101,8 @@ class _VideoPostState extends State<VideoPost>
     if (visibilityInfo.visibleFraction == 1 &&
         !_controller.value.isPlaying &&
         !_isPaused) {
-
-      if (false) {
+      
+      if (ref.read(playbackConfigProvider).autoPlay) {
         _controller.play();
       }
     }
@@ -192,10 +191,9 @@ class _VideoPostState extends State<VideoPost>
             top: Sizes.size52,
             left: Sizes.size32,
             child: IconButton(
-              onPressed: () {
-              },
+              onPressed: _onPlaybackConfigChanged,
               icon: FaIcon(
-                false
+                ref.watch(playbackConfigProvider).muted
                     ? FontAwesomeIcons.volumeXmark
                     : FontAwesomeIcons.volumeHigh,
                 color: Colors.black38,
