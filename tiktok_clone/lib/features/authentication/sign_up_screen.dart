@@ -1,48 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/authentication/username_screen.dart';
+import 'package:tictok_clone/features/authentication/viewmodels/social_auth_view_model.dart';
 import 'package:tictok_clone/features/authentication/widgets/auth_button.dart';
 
 import '../../generated/l10n.dart';
 import 'login_screen.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends ConsumerWidget {
   static const String routeName = "sign_up";
   static const String routeUrl = "/";
 
   const SignUpScreen({super.key});
 
   void _onLoginTap(BuildContext context) {
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (context) => LoginScreen(),
-    //   ),
-    // );
-    // Navigator.of(context).pushNamed(LoginScreen.routeName);
     context.pushNamed(LoginScreen.routeName);
   }
 
   void _onEmailTap(BuildContext context) {
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (context) => UsernameScreen(),
-    //   ),
-    // );
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => UsernameScreen(),
       ),
     );
-    // context.push(UsernameScreen.routeName);
-    // context.pushNamed(UsernameScreen.routeName);
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return OrientationBuilder(
       builder: (BuildContext context, Orientation orientation) {
         if (orientation == Orientation.landscape) {
@@ -88,11 +77,11 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     Gaps.v16,
                     AuthButton(
-                      text: 'Continue with Facebook',
+                      text: 'Continue with Github',
                       icon: FaIcon(
-                        FontAwesomeIcons.facebook,
+                        FontAwesomeIcons.github,
                       ),
-                      onTap: () {},
+                      onTap: () => ref.read(socialAuthProvider.notifier).githubSignIn(context),
                     ),
                     Gaps.v16,
                     AuthButton(

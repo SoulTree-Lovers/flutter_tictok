@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/authentication/email_screen.dart';
 import 'package:tictok_clone/features/authentication/login_form_screen.dart';
+import 'package:tictok_clone/features/authentication/viewmodels/social_auth_view_model.dart';
 import 'package:tictok_clone/features/authentication/widgets/auth_button.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   static const String routeName = "login";
   static const String routeUrl = "/login";
 
   const LoginScreen({super.key});
 
   void _onSignUpTap(BuildContext context) {
-    // Navigator.of(context).pop();
     context.pop();
   }
 
   void _onEmailLoginTap(BuildContext context) {
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (context) => LoginFormScreen(),
-    //   ),
-    // );
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -33,7 +29,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
         top: true,
@@ -67,11 +63,11 @@ class LoginScreen extends StatelessWidget {
               ),
               Gaps.v16,
               AuthButton(
-                text: 'Continue with Facebook',
+                text: 'Continue with Github',
                 icon: FaIcon(
-                  FontAwesomeIcons.facebook,
+                  FontAwesomeIcons.github,
                 ),
-                onTap: () {},
+                onTap: () => ref.read(socialAuthProvider.notifier).githubSignIn(context),
               ),
               Gaps.v16,
               AuthButton(
