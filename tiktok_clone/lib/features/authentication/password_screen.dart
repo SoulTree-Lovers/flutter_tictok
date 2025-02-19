@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/authentication/birthday_screen.dart';
 import 'package:tictok_clone/features/authentication/password_screen.dart';
+import 'package:tictok_clone/features/authentication/viewmodels/signup_view_model.dart';
 import 'package:tictok_clone/features/authentication/widgets/auth_text_field.dart';
 import 'package:tictok_clone/features/authentication/widgets/form_button.dart';
 
-class PasswordScreen extends StatefulWidget {
+class PasswordScreen extends ConsumerStatefulWidget {
   const  PasswordScreen({super.key});
 
   @override
-  State<PasswordScreen> createState() => _PasswordScreenState();
+  ConsumerState<PasswordScreen> createState() => PasswordScreenState();
 }
 
-class _PasswordScreenState extends State<PasswordScreen> {
+class PasswordScreenState extends ConsumerState<PasswordScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   String _password = "";
@@ -56,6 +58,13 @@ class _PasswordScreenState extends State<PasswordScreen> {
     if (_password.isEmpty || !_isPasswordValid()) {
       return;
     }
+
+    final state = ref.read(signUpForm.notifier).state;
+
+    ref.read(signUpForm.notifier).state = {
+      ...state,
+      "password": _password,
+    };
 
     Navigator.of(context).push(
       MaterialPageRoute(

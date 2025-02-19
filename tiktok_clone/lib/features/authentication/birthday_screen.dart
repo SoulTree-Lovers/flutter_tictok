@@ -1,22 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
+import 'package:tictok_clone/features/authentication/viewmodels/signup_view_model.dart';
 import 'package:tictok_clone/features/authentication/widgets/auth_text_field.dart';
 import 'package:tictok_clone/features/authentication/widgets/form_button.dart';
 import 'package:tictok_clone/features/onboarding/interests_screen.dart';
 
 import 'email_screen.dart';
 
-class BirthdayScreen extends StatefulWidget {
+class BirthdayScreen extends ConsumerStatefulWidget {
   const BirthdayScreen({super.key});
 
   @override
-  State<BirthdayScreen> createState() => _BirthdayScreenState();
+  ConsumerState<BirthdayScreen> createState() => BirthdayScreenState();
 }
 
-class _BirthdayScreenState extends State<BirthdayScreen> {
+class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
   final TextEditingController _birthdayController = TextEditingController();
 
   DateTime initialDate = DateTime.now().subtract(Duration(days: 365 * 12));
@@ -37,16 +39,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
   }
 
   void _onNextTap() {
-    // Navigator.of(context).pushAndRemoveUntil(
-    //    MaterialPageRoute(
-    //     builder: (context) => InterestsScreen(),
-    //   ),
-    //   (route) {
-    //     print(route);
-    //     return false;
-    //   },
-    // );
-    context.goNamed(InterestsScreen.routeName);
+    ref.read(signUpProvider.notifier).signUp( );
   }
 
   void _setTextFieldDate(DateTime date) {
@@ -98,7 +91,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
             Gaps.v16,
             FormButton(
               onTap: _onNextTap,
-              disabled: false,
+              disabled: ref.watch(signUpProvider).isLoading,
               text: 'Next',
             ),
           ],

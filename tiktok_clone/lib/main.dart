@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,12 +9,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tictok_clone/common/widgets/video_config/video_config.dart';
 import 'package:tictok_clone/features/videos/repository/playback_config_repo.dart';
 import 'package:tictok_clone/features/videos/viewmodels/playback_config_vm.dart';
+import 'package:tictok_clone/firebase_options.dart';
 import 'package:tictok_clone/router.dart';
 import 'constants/sizes.dart';
 import 'generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Flutter 엔진 초기화
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  ); // Firebase 초기화
+
   await SystemChrome.setPreferredOrientations(
     // 세로 모드로 고정
     [
@@ -39,17 +46,17 @@ void main() async {
   );
 }
 
-class TikTokApp extends StatelessWidget {
+class TikTokApp extends ConsumerWidget {
   const TikTokApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // S.load(Locale('en')); // 언어 설정 강제
     // S.load(Locale('ko')); // 언어 설정 강제
 
     return MaterialApp.router(
-      routerConfig: router,
+      routerConfig: ref.watch(routerProvider),
       debugShowCheckedModeBanner: false,
       title: 'TikTok',
       themeMode: ThemeMode.system,
