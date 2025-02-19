@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tictok_clone/features/authentication/repository/authentication_repository.dart';
+import 'package:tictok_clone/features/onboarding/interests_screen.dart';
 import 'package:tictok_clone/utils/utils.dart';
 
 class SignUpViewModel extends AsyncNotifier<void> {
@@ -26,6 +28,8 @@ class SignUpViewModel extends AsyncNotifier<void> {
 
     if (state.hasError) {
       showFirebaseErrorSnack(context, state.error);
+    } else {
+      context.goNamed(InterestsScreen.routeName);
     }
   }
 }

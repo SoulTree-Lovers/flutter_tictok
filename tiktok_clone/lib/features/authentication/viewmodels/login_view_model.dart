@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tictok_clone/features/authentication/repository/authentication_repository.dart';
 import 'package:tictok_clone/utils/utils.dart';
 
@@ -23,6 +24,9 @@ class LoginViewModel extends AsyncNotifier<void> {
 
     if (state.hasError) { // 에러가 있을 때 에러 메시지를 보여줍니다.
       showFirebaseErrorSnack(context, state.error);
+    } else {
+      // 에러가 없을 때 홈 화면으로 이동합니다.
+      context.go('/home');
     }
 
 

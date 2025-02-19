@@ -81,7 +81,7 @@ class LoginFormScreenState extends ConsumerState<LoginFormScreen> {
               ),
               Gaps.v28,
               FormButton(
-                disabled: false,
+                disabled: ref.watch(loginProvider).isLoading,
                 onTap: _onSubmitTap,
                 text: "Login",
               ),
