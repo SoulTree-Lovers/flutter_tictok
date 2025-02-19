@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
+import 'package:tictok_clone/features/authentication/viewmodels/login_view_model.dart';
 import 'package:tictok_clone/features/authentication/widgets/form_button.dart';
 
 import '../onboarding/interests_screen.dart';
 
-class LoginFormScreen extends StatefulWidget {
+class LoginFormScreen extends ConsumerStatefulWidget {
   const LoginFormScreen({super.key});
 
   @override
-  State<LoginFormScreen> createState() => _LoginFormScreenState();
+  ConsumerState<LoginFormScreen> createState() => LoginFormScreenState();
 }
 
-class _LoginFormScreenState extends State<LoginFormScreen> {
+class LoginFormScreenState extends ConsumerState<LoginFormScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Map<String, String> _formData = {
@@ -25,17 +27,9 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
+        
+        ref.read(loginProvider.notifier).login(_formData["email"]!, _formData["password"]!, context);
 
-        context.goNamed(InterestsScreen.routeName);
-        // Navigator.of(context).pushAndRemoveUntil(
-        //   MaterialPageRoute(
-        //     builder: (context) => InterestsScreen(),
-        //   ),
-        //   (route) {
-        //     print(route);
-        //     return false;
-        //   },
-        // );
       }
     }
   }

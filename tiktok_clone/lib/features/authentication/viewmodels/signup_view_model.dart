@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tictok_clone/features/authentication/repository/authentication_repository.dart';
+import 'package:tictok_clone/utils/utils.dart';
 
 class SignUpViewModel extends AsyncNotifier<void> {
   late final AuthenticationRepository _authenticationRepository;
@@ -11,19 +13,24 @@ class SignUpViewModel extends AsyncNotifier<void> {
     _authenticationRepository = ref.read(authRepositoryProvider);
   }
 
-  Future<void> signUp() async {
+  Future<void> signUp(BuildContext context) async {
     state = AsyncValue.loading();
     final form = ref.read(signUpForm);
 
-    await _authenticationRepository.signUp(
-      form["email"],
-      form["password"],
+    state = await AsyncValue.guard(
+      () async => await _authenticationRepository.signUp(
+        form["email"],
+        form["password"],
+      ),
     );
 
-    state = AsyncValue.data(null);
+    if (state.hasError) {
+      showFirebaseErrorSnack(context, state.error);
+    }
   }
 }
 
 final signUpForm = StateProvider((ref) => {});
 
-final signUpProvider = AsyncNotifierProvider<SignUpViewModel, void>(() => SignUpViewModel());
+final signUpProvider =
+    AsyncNotifierProvider<SignUpViewModel, void>(() => SignUpViewModel());

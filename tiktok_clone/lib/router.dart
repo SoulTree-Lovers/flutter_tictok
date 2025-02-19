@@ -31,6 +31,9 @@ import 'package:tictok_clone/features/videos/views/video_recording_screen.dart';
 
 final routerProvider = Provider(
   (ref) {
+
+    ref.watch(authStateStream);
+
     return GoRouter(
       initialLocation: "/home",
       redirect: (context, state) {
