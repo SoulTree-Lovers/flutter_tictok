@@ -2,24 +2,27 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gallery_saver_plus/gallery_saver.dart';
+import 'package:tictok_clone/features/videos/viewmodels/timeline_view_model.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoPreviewScreen extends StatefulWidget {
+class VideoPreviewScreen extends ConsumerStatefulWidget {
   final File video;
   final bool isPicked;
 
   const VideoPreviewScreen({
     super.key,
-    required this.video, required this.isPicked,
+    required this.video,
+    required this.isPicked,
   });
 
   @override
-  State<VideoPreviewScreen> createState() => _VideoPreviewScreenState();
+  VideoPreviewScreenState createState() => VideoPreviewScreenState();
 }
 
-class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
+class VideoPreviewScreenState extends ConsumerState<VideoPreviewScreen> {
   late final VideoPlayerController _videoPlayerController;
 
   bool _savedVideo = false;
@@ -44,7 +47,7 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
 
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
-    await _videoPlayerController.play();
+    // await _videoPlayerController.play();
 
     setState(() {});
   }
@@ -63,6 +66,10 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
     setState(() {});
   }
 
+  void _onUploadPressed() {
+    ref.read(timelineProvider.notifier).uploadVideo();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,11 +78,17 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
         title: const Text('Video Preview'),
         actions: [
           if (!widget.isPicked)
-          IconButton(
-            onPressed: _saveToGallery,
-            icon: FaIcon(
-              _savedVideo ? FontAwesomeIcons.check : FontAwesomeIcons.download,
+            IconButton(
+              onPressed: _saveToGallery,
+              icon: FaIcon(
+                _savedVideo
+                    ? FontAwesomeIcons.check
+                    : FontAwesomeIcons.download,
+              ),
             ),
+          IconButton(
+            onPressed: ref.watch(timelineProvider).isLoading ? null : _onUploadPressed,
+            icon: ref.watch(timelineProvider).isLoading ? CircularProgressIndicator() : FaIcon(FontAwesomeIcons.cloudArrowUp),
           ),
         ],
       ),
