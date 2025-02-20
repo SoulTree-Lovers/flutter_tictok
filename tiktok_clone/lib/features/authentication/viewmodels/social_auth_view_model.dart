@@ -27,6 +27,7 @@ class SocialAuthViewModel extends AsyncNotifier<void> {
     } else {
       context.go("/home");
     }
+
   }
 }
 

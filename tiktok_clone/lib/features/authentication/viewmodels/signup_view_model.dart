@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tictok_clone/features/authentication/repository/authentication_repository.dart';
 import 'package:tictok_clone/features/onboarding/interests_screen.dart';
+import 'package:tictok_clone/features/users/viewmodels/user_view_model.dart';
 import 'package:tictok_clone/utils/utils.dart';
 
 class SignUpViewModel extends AsyncNotifier<void> {
@@ -18,12 +19,16 @@ class SignUpViewModel extends AsyncNotifier<void> {
   Future<void> signUp(BuildContext context) async {
     state = AsyncValue.loading();
     final form = ref.read(signUpForm);
+    final users = ref.read(userProvider.notifier);
 
     state = await AsyncValue.guard(
-      () async => await _authenticationRepository.signUp(
+      () async {
+        final userCredential = await _authenticationRepository.signUp(
         form["email"],
         form["password"],
-      ),
+      );
+        await users.createProfile(userCredential);
+      },
     );
 
     if (state.hasError) {
