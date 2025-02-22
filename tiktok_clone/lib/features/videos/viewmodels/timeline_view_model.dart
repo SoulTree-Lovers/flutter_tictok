@@ -5,18 +5,18 @@ import 'package:tictok_clone/features/videos/models/video_model.dart';
 
 class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
   List<VideoModel> _videos = [
-    VideoModel(
-      title: "Video 1",
-    ),
+    // VideoModel(
+    //   title: "Video 1",
+    // ),
   ];
 
   void uploadVideo() async {
     state = AsyncValue.loading();
     await Future.delayed(Duration(seconds: 2));
-    final video = VideoModel(
-      title: "${DateTime.now()}"
-    );
-    _videos = [..._videos, video];
+    // final video = VideoModel(
+    //   title: "${DateTime.now()}"
+    // );
+    // _videos = [..._videos, video];
     state = AsyncValue.data(_videos);
   }
 
