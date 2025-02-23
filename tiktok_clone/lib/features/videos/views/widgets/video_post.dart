@@ -6,6 +6,7 @@ import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
 import 'package:tictok_clone/features/videos/models/video_model.dart';
 import 'package:tictok_clone/features/videos/viewmodels/playback_config_vm.dart';
+import 'package:tictok_clone/features/videos/viewmodels/video_post_view_model.dart';
 import 'package:tictok_clone/features/videos/views/widgets/video_button.dart';
 import 'package:tictok_clone/features/videos/views/widgets/video_comments.dart';
 import 'package:tictok_clone/generated/l10n.dart';
@@ -143,6 +144,10 @@ class VideoPostState extends ConsumerState<VideoPost>
     print("closed");
   }
 
+  void _onLikeTap() {
+    ref.read(videoPostProvider(widget.videoData.id).notifier).likeVideo();
+  }
+
   @override
   Widget build(BuildContext context) {
     print("build"); // 빌드 호출 확인
@@ -244,9 +249,12 @@ class VideoPostState extends ConsumerState<VideoPost>
                   child: Text("${widget.videoData.creatorName}"),
                 ),
                 Gaps.v24,
-                VideoButton(
-                  icon: FontAwesomeIcons.solidHeart,
-                  text: S.of(context).likeCount(widget.videoData.likes),
+                GestureDetector(
+                  onTap: _onLikeTap,
+                  child: VideoButton(
+                    icon: FontAwesomeIcons.solidHeart,
+                    text: S.of(context).likeCount(widget.videoData.likes),
+                  ),
                 ),
                 Gaps.v24,
                 GestureDetector(

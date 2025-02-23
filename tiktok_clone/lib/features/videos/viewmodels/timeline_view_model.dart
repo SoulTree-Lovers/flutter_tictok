@@ -13,13 +13,13 @@ class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
     final result = await _videosRepository.fetchVideos(lastItemCreatedAt: null);
 
     var videos = result.docs.map(
-          (doc) => VideoModel.fromJson(
-        doc.data(),
+      (doc) => VideoModel.fromJson(
+        json: doc.data(),
+        videoId: doc.id,
       ),
     );
 
     return videos.toList();
-
   }
 
   @override
@@ -31,14 +31,18 @@ class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
     return _videos;
   }
 
-
-  fetchNextPage() async {
+  Future<void> fetchNextPage() async {
     final nextPage = await _fetchVideos(
       lastItemCreatedAt: _videos.last.createdAt,
     );
-    
-    state = AsyncValue.data([..._videos, ...nextPage]);
 
+    state = AsyncValue.data([..._videos, ...nextPage]);
+  }
+
+  Future<void> refresh() async {
+    final videos = await _fetchVideos(lastItemCreatedAt: null);
+    _videos = videos;
+    state = AsyncValue.data(videos);
   }
 }
 

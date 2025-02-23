@@ -21,8 +21,7 @@ class VideosRepository {
   }
 
   // fetch videos
-  Future<QuerySnapshot<Map<String, dynamic>>> fetchVideos(
-      {
+  Future<QuerySnapshot<Map<String, dynamic>>> fetchVideos({
     int? lastItemCreatedAt,
   }) {
     final query = _firestore
@@ -37,7 +36,19 @@ class VideosRepository {
     }
   }
 
-// create video document
+  Future<void> likeVideo(String videoId, String userId) async {
+    final query = _firestore.collection("likes").doc("${videoId}000${userId}");
+    final like = await query.get();
+
+    if (!like.exists) {
+      await query.set(
+        {
+          "createdAt": DateTime.now().millisecondsSinceEpoch,
+        },
+      );
+    }
+
+  }
 }
 
 final videosRepositoryProvider = Provider<VideosRepository>((ref) {
