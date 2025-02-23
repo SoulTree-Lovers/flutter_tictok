@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/constants/gaps.dart';
+import 'package:tictok_clone/features/authentication/repository/authentication_repository.dart';
 import 'package:tictok_clone/features/inbox/viewmodels/messages_view_model.dart';
 
 class ChatDetailScreen extends ConsumerStatefulWidget {
@@ -31,7 +32,7 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var isLoading = ref.watch(messagesProvider).isLoading;
+    final isLoading = ref.watch(messagesProvider).isLoading;
 
     return Scaffold(
       appBar: AppBar(
@@ -98,47 +99,67 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
       ),
       body: Stack(
         children: [
-          ListView.separated(
-            itemBuilder: (context, index) {
-              final isMine = index % 2 == 0; // for demo
-
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment:
-                      isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: isMine
-                            ? Colors.blue
-                            : Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomLeft:
-                              isMine ? Radius.circular(20) : Radius.zero,
-                          bottomRight:
-                              isMine ? Radius.zero : Radius.circular(20),
-                        ),
-                      ),
-                      child: Text(
-                        "This is a message!",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
+          ref.watch(chatProvider).when(
+                loading: () => Center(
+                  child: CircularProgressIndicator(),
                 ),
-              );
-            },
-            separatorBuilder: (context, index) => Gaps.v8,
-            itemCount: 10,
-          ),
+                error: (err, stack) {
+                  print(err);
+                  return Center(
+                    child: Text("Error: ${err.toString()}"),
+                  );
+                },
+                data: (data) {
+                  return ListView.separated(
+                    reverse: true,
+                    padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom + 90),
+                    itemBuilder: (context, index) {
+                      final message = data[index];
+                      final isMine = message.senderUid ==
+                          ref.watch(authRepositoryProvider).user!.uid;
+
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5.0, horizontal: 16),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: isMine
+                              ? MainAxisAlignment.end
+                              : MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: isMine
+                                    ? Colors.blue
+                                    : Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                  bottomLeft: isMine
+                                      ? Radius.circular(20)
+                                      : Radius.zero,
+                                  bottomRight: isMine
+                                      ? Radius.zero
+                                      : Radius.circular(20),
+                                ),
+                              ),
+                              child: Text(
+                                message.text,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) => Gaps.v4,
+                    itemCount: data.length,
+                  );
+                },
+              ),
           Positioned(
             bottom: 0,
             width: MediaQuery.of(context).size.width,
