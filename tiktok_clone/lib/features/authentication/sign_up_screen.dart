@@ -52,7 +52,8 @@ class SignUpScreen extends ConsumerWidget {
                 children: [
                   Gaps.v80,
                   Text(
-                    S.of(context).signUpTitle("TikTok", DateTime.now()),
+                    // S.of(context).signUpTitle("TikTok", DateTime.now()),
+                    "Sign up to TikTok",
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   Gaps.v20,
@@ -148,7 +149,8 @@ class SignUpScreen extends ConsumerWidget {
                     InkWell(
                       onTap: () => _onLoginTap(context),
                       child: Text(
-                        S.of(context).logIn("male"),
+                        // S.of(context).logIn("male"),
+                        'Log in',
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.w600,

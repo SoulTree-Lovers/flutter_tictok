@@ -99,7 +99,7 @@ class LoginScreen extends ConsumerWidget {
                 InkWell(
                   onTap: () => _onSignUpTap(context),
                   child: Text(
-                    'Sign Up',
+                    'Sign up',
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.w600,
