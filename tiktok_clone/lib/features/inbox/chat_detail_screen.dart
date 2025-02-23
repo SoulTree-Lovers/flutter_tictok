@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/constants/gaps.dart';
+import 'package:tictok_clone/features/inbox/viewmodels/messages_view_model.dart';
 
-class ChatDetailScreen extends StatefulWidget {
+class ChatDetailScreen extends ConsumerStatefulWidget {
   static const String routeName = "chat_detail";
   static const String routeUrl = ":chatId";
   final String chatId;
@@ -13,12 +15,24 @@ class ChatDetailScreen extends StatefulWidget {
   });
 
   @override
-  State<ChatDetailScreen> createState() => _ChatDetailScreenState();
+  ConsumerState<ChatDetailScreen> createState() => ChatDetailScreenState();
 }
 
-class _ChatDetailScreenState extends State<ChatDetailScreen> {
+class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
+  final TextEditingController _textController = TextEditingController();
+
+  void _onSendPressed() {
+    final text = _textController.text;
+    if (text.isEmpty) return;
+
+    ref.read(messagesProvider.notifier).sendMessage(text);
+    _textController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
+    var isLoading = ref.watch(messagesProvider).isLoading;
+
     return Scaffold(
       appBar: AppBar(
         title: ListTile(
@@ -134,6 +148,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                 children: [
                   Expanded(
                     child: TextField(
+                      controller: _textController,
                       decoration: InputDecoration(
                         hintText: "Type a message...",
                         border: InputBorder.none,
@@ -167,9 +182,14 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                       shape: BoxShape.circle,
                       color: Colors.grey.shade300,
                     ),
-                    child: FaIcon(
-                      FontAwesomeIcons.paperPlane,
-                      color: Colors.white,
+                    child: IconButton(
+                      onPressed: isLoading ? null : _onSendPressed,
+                      icon: FaIcon(
+                        isLoading
+                            ? FontAwesomeIcons.hourglass
+                            : FontAwesomeIcons.paperPlane,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
