@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tictok_clone/common/widgets/video_config/video_config.dart';
+import 'package:tictok_clone/features/notification/notifications_provider.dart';
 import 'package:tictok_clone/features/videos/repository/playback_config_repo.dart';
 import 'package:tictok_clone/features/videos/viewmodels/playback_config_vm.dart';
 import 'package:tictok_clone/firebase_options.dart';
@@ -54,6 +55,7 @@ class TikTokApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // S.load(Locale('en')); // 언어 설정 강제
     // S.load(Locale('ko')); // 언어 설정 강제
+    
 
     return MaterialApp.router(
       routerConfig: ref.watch(routerProvider),
