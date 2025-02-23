@@ -11,7 +11,8 @@ class VideosRepository {
 
   // upload video
   UploadTask uploadVideoFile(File video, String uid) {
-    final fileRef = _storage.ref().child("videos/$uid/${DateTime.now().millisecondsSinceEpoch.toString()}");
+    final fileRef = _storage.ref().child(
+        "videos/$uid/${DateTime.now().millisecondsSinceEpoch.toString()}");
     return fileRef.putFile(video);
   }
 
@@ -19,8 +20,24 @@ class VideosRepository {
     await _firestore.collection("videos").add(video.toJson());
   }
 
-  // create video document
+  // fetch videos
+  Future<QuerySnapshot<Map<String, dynamic>>> fetchVideos(
+      {
+    int? lastItemCreatedAt,
+  }) {
+    final query = _firestore
+        .collection("videos")
+        .orderBy("createdAt", descending: true)
+        .limit(2);
 
+    if (lastItemCreatedAt != null) {
+      return query.get();
+    } else {
+      return query.startAfter([lastItemCreatedAt]).get();
+    }
+  }
+
+// create video document
 }
 
 final videosRepositoryProvider = Provider<VideosRepository>((ref) {

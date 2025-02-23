@@ -15,7 +15,7 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
   final _scrollDuration = Duration(milliseconds: 200);
   final _scrollCurve = Curves.linear;
 
-  int _itemCount = 5;
+  int _itemCount = 0;
 
   List<Color> colors = [
     Colors.red,
@@ -46,18 +46,8 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
       curve: _scrollCurve,
     );
     if (page == _itemCount - 1) {
-      setState(() {
-        /*_itemCount += 5;
-        colors.addAll([
-          Colors.red,
-          Colors.blue,
-          Colors.green,
-          Colors.yellow,
-          Colors.purple,
-        ]);*/
-        print('Item Count: $_itemCount');
-      });
-    }
+      ref.watch(timelineProvider.notifier).fetchNextPage();
+     }
   }
 
   Future<void> _onRefresh() {
@@ -88,7 +78,10 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
           ),
-          data: (videos) => RefreshIndicator(
+          data: (videos) {
+            _itemCount = videos.length;
+
+            return RefreshIndicator(
             edgeOffset: 20,
             displacement: 60,
             color: Theme.of(context).primaryColor,
@@ -98,14 +91,20 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
               controller: _pageController,
               itemCount: videos.length,
               onPageChanged: _onPageChanged,
-              itemBuilder: (BuildContext context, int index) => VideoPost(
+              itemBuilder: (BuildContext context, int index) {
+                final videoData = videos[index];
+
+                return VideoPost(
                 onVideoFinished: _onVideoFinished,
                 index: index,
-              ),
+                videoData: videoData,
+              );
+              },
               pageSnapping: true,
               scrollDirection: Axis.vertical,
             ),
-          ),
+          );
+          },
         );
   }
 }

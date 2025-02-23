@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tictok_clone/constants/gaps.dart';
 import 'package:tictok_clone/constants/sizes.dart';
+import 'package:tictok_clone/features/videos/models/video_model.dart';
 import 'package:tictok_clone/features/videos/viewmodels/playback_config_vm.dart';
 import 'package:tictok_clone/features/videos/views/widgets/video_button.dart';
 import 'package:tictok_clone/features/videos/views/widgets/video_comments.dart';
@@ -14,11 +15,13 @@ import 'package:visibility_detector/visibility_detector.dart';
 class VideoPost extends ConsumerStatefulWidget {
   final Function onVideoFinished;
   final int index;
+  final VideoModel videoData;
 
   const VideoPost({
     super.key,
     required this.onVideoFinished,
     required this.index,
+    required this.videoData,
   });
 
   @override
@@ -72,7 +75,6 @@ class VideoPostState extends ConsumerState<VideoPost>
       upperBound: 1.5,
       value: 1.5,
     );
-
   }
 
   void _onPlaybackConfigChanged() {
@@ -101,7 +103,6 @@ class VideoPostState extends ConsumerState<VideoPost>
     if (visibilityInfo.visibleFraction == 1 &&
         !_controller.value.isPlaying &&
         !_isPaused) {
-      
       if (ref.read(playbackConfigProvider).autoPlay) {
         _controller.play();
       }
@@ -154,8 +155,9 @@ class VideoPostState extends ConsumerState<VideoPost>
           Positioned.fill(
             child: _controller.value.isInitialized
                 ? VideoPlayer(_controller)
-                : Container(
-                    color: Colors.black,
+                : Image.network(
+                    widget.videoData.thumbnailUrl,
+                    fit: BoxFit.cover,
                   ),
           ),
           Positioned.fill(
@@ -207,7 +209,7 @@ class VideoPostState extends ConsumerState<VideoPost>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "@username",
+                  "@${widget.videoData.creatorName}",
                   style: TextStyle(
                     fontSize: Sizes.size20,
                     color: Colors.white,
@@ -217,7 +219,7 @@ class VideoPostState extends ConsumerState<VideoPost>
                 Gaps.v16,
                 FractionallySizedBox(
                   child: Text(
-                    "Description",
+                    "${widget.videoData.description}",
                     style: TextStyle(
                       fontSize: Sizes.size16,
                       color: Colors.white,
@@ -238,20 +240,20 @@ class VideoPostState extends ConsumerState<VideoPost>
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
                   foregroundImage: NetworkImage(
-                      "https://avatars.githubusercontent.com/u/54972879?v=4"),
-                  child: Text("니꼬"),
+                      "https://firebasestorage.googleapis.com/v0/b/tiktok-202502.firebasestorage.app/o/avatars%2${widget.videoData.creatorUid}?alt=media&token=eb79b397-ae54-4f9a-b8e9-9e3e7612155e"),
+                  child: Text("${widget.videoData.creatorName}"),
                 ),
                 Gaps.v24,
                 VideoButton(
                   icon: FontAwesomeIcons.solidHeart,
-                  text: S.of(context).likeCount(1932131242),
+                  text: S.of(context).likeCount(widget.videoData.likes),
                 ),
                 Gaps.v24,
                 GestureDetector(
                   onTap: () => _onCommentsTap(context),
                   child: VideoButton(
                     icon: FontAwesomeIcons.solidComment,
-                    text: S.of(context).commentCount(33300),
+                    text: S.of(context).commentCount(widget.videoData.comments),
                   ),
                 ),
                 Gaps.v24,

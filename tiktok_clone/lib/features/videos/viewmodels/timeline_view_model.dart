@@ -2,31 +2,43 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tictok_clone/features/videos/models/video_model.dart';
+import 'package:tictok_clone/features/videos/repository/videos_repository.dart';
 
 class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
-  List<VideoModel> _videos = [
-    // VideoModel(
-    //   title: "Video 1",
-    // ),
-  ];
+  late final VideosRepository _videosRepository;
 
-  void uploadVideo() async {
-    state = AsyncValue.loading();
-    await Future.delayed(Duration(seconds: 2));
-    // final video = VideoModel(
-    //   title: "${DateTime.now()}"
-    // );
-    // _videos = [..._videos, video];
-    state = AsyncValue.data(_videos);
+  List<VideoModel> _videos = [];
+
+  Future<List<VideoModel>> _fetchVideos({int? lastItemCreatedAt}) async {
+    final result = await _videosRepository.fetchVideos(lastItemCreatedAt: null);
+
+    var videos = result.docs.map(
+          (doc) => VideoModel.fromJson(
+        doc.data(),
+      ),
+    );
+
+    return videos.toList();
+
   }
 
   @override
   FutureOr<List<VideoModel>> build() async {
-    // Future<모델>을 반환하는 비동기 함수 (실제 API 호출)
-    await Future.delayed(Duration(seconds: 2));
-    // throw Exception("Error");
+    _videosRepository = ref.read(videosRepositoryProvider);
+
+    _videos = await _fetchVideos(lastItemCreatedAt: null);
 
     return _videos;
+  }
+
+
+  fetchNextPage() async {
+    final nextPage = await _fetchVideos(
+      lastItemCreatedAt: _videos.last.createdAt,
+    );
+    
+    state = AsyncValue.data([..._videos, ...nextPage]);
+
   }
 }
 
